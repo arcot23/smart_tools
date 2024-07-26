@@ -1,0 +1,11 @@
+---
+nsample: 10
+read_csv:
+  skipheader: 0
+  skipfooter: 0
+  engine: python
+  encoding: 'utf-8'
+  quotechar: '"'
+  on_bad_lines: 'warn'
+  dtype: 'str'
+  keep_default_na: false

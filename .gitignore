@@ -1,0 +1,5 @@
+/*.spec
+/*.idea
+/build/
+/dist/
+/smart_tools.egg-info/
