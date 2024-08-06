@@ -4,7 +4,6 @@ import yaml
 
 from smart_tools.dissector.dirdissector import dissect_from_dir
 
-
 def main():
     parser = argparse.ArgumentParser()
 
@@ -35,7 +34,7 @@ def main():
         print(f'- {config}: `{configs[config]}`')
 
     print('**Process:**')
-    df_all = dissect_from_dir(args, configs)
+    df_all = dissect_from_dir(dir=args['dir'], file=args['file'], sep=args['sep'], nsample=configs['nsample'], slicers=args['slicers'], colnames = args['cols'])
 
     print('**Result:**')
     output_path = os.path.join(args['dir'], f'dissect_result.{args["to"]}')

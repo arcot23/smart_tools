@@ -1,5 +1,8 @@
 /*.spec
 /*.idea
+/*.pyc
 /build/
 /dist/
 /smart_tools.egg-info/
+/config/iban_lengths.txt
+/config/iban_registry.txt

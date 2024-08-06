@@ -8,3 +8,5 @@ pyinstaller smart_tools/morpher/main.py --onefile --name morpher
 python -m pip list
 python -m pip install dist/smart_tools-0.1-py3-none-any.whl
 python -m pip uninstall smart_tools
+
+twine upload dist/*

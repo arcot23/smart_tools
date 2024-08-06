@@ -1,0 +1,5 @@
+
+iban_remote_registry_url: 'https://www.swift.com/swift-resource/11971/download'
+iban_local_registry_file: '.\config\iban_registry.txt'
+iban_local_length_file: '.\config\iban_lengths.txt'
+
