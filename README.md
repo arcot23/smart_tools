@@ -1,5 +1,18 @@
 
-### dissector
+### Dissector
+
+#### Using the dissector command-line tool
+
+**Dissector** is a command-line tool that runs analysis on a text file. The input can be a single file or a directory with multiple files. The output contains the following:
+
+- strlen
+- nnull
+- nrow
+- nunique
+- nvalue
+- freq
+- sample
+- symbols
 
 ```commandline
 usage: dissector [-h] [-t--to {xlsx,json,csv}] [-s SEP]
@@ -26,18 +39,28 @@ optional arguments:
                         `.\config\dissector_config.yaml`
 ```
 
-Examples:
+Here are some samples:
 
+Fetch `*.csv` from `.\temp` and dissect them with delimiter `,`. 
 ```commandline
 > dissector .\temp *.csv -s ,
-
-> dissector c:\temp myfile.text -s ;
-
-> dissector c:\temp myfile.text -s ; --slicers "" "COLUMN1 == 'VALUE'"
-
-> dissector c:\temp myfile.text -s ; --slicers "" "`COLUMN 1` == 'VALUE'"
-
 ```
+Fetch `myfile.text` from `c:\temp` and dissect the file with delimiter `;`.
+```commandline
+> dissector c:\temp myfile.text -s ;
+```
+Fetch `myfile.text` from `c:\temp` and dissect the file with delimiter `;` by slicing the data without a filter and with a filter on `COLUMN1 == 'VALUE'`.
+```commandline
+> dissector c:\temp myfile.text -s ; --slicers "" "COLUMN1 == 'VALUE'"
+```
+Fetch `myfile.text` from `c:\temp` and dissect the file with delimiter `;` by slicing the data without a filter and with a filter on a column name that has a space in it `COLUMN 1 == 'VALUE'`.
+```commandline
+> dissector c:\temp myfile.text -s ; --slicers "" "`COLUMN 1` == 'VALUE'"
+```
+
+#### Using the dissector python libary
+
+TODO
 
 ### morpher
 
