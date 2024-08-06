@@ -19,7 +19,7 @@ setup(
         # List your project dependencies here
     ],
     data_files=[
-        ('config', ['config/*.yaml']),
+        ('config', ['config/dissector_config.yaml', 'config/iban_config.yaml']),
     ],
     python_requires='>=3.8',
 )
