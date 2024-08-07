@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='smart_tools',
-    version='0.2',
+    version='0.3',
     description='A variety of smart tools to make analytics easy.',
     author='Prabhuram Venkatesan',
     packages=find_packages(),
