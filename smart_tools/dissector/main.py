@@ -11,7 +11,7 @@ def main():
     parser.add_argument('file', type=str, help='Input file (for multiple files use wildcard)')
     # parser.add_argument('--from', choices=['csv', 'xls'], default='csv',
     #                     help='How to process files: as_csv|as_xls')
-    parser.add_argument('-t' '--to', choices=['xlsx', 'json', 'csv'], default='xlsx',
+    parser.add_argument('-t', '--to', choices=['xlsx', 'json', 'csv'], default='xlsx',
                         help='Dissected as one of: xlsx or json. Default is xlsx.')
     parser.add_argument('-s','--sep', default=',', help='Column separator')
     parser.add_argument('--slicers', nargs='*', default=[''],
