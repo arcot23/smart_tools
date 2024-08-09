@@ -8,7 +8,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name='smart_tools',
-    version='0.7',
+    version='0.8',
     description='A variety of smart tools to make analytics easy.',
     author='Prabhuram Venkatesan',
     readme = "README.md",
