@@ -34,8 +34,9 @@ def parse(text, option=None, get_option=True, line_sep=' _ ', has_acct=True):
 
         if response_dict['option'] == 'F':
             for item in dict:
-                if re.search('line[1234]', item) and re.search('3\/(\w+)', dict[item]): country_dict[
-                    'optionf_country_code'] = re.search('3\/(\w+)', dict[item]).group(1)
+                if not dict[item] is None:
+                    if re.search('line[1234]', item) and re.search('3\/(\w+)', dict[item]): country_dict[
+                        'optionf_country_code'] = re.search('3\/(\w+)', dict[item]).group(1)
 
         if response_dict['has_iban']:
             country_dict['iban_country_code'] = response_dict['iban']['country_code']

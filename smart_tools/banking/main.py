@@ -8,7 +8,8 @@ def main():
     text1 = ['/DE89370400440532013000 _ BARCGB22', 'A']
     text2 = ['/GB82WEST12345698765432 _ 1/John Doe _ 2/25 Street Name, Apt 5 _ 3/SE-12345 City Name _ 4/US _ 5/Wrong one', 'F']
     text3 = ['/GB82WEST12345698765432 _ 1/John Doe _ 2/25 Street Name, Apt 5 _ 3/SE-12345 City Name _ 4/US', 'F']
-    text4 = ['1/John Doe _ 2/25 Street Name, Apt 5 _ 3/SE-12345 City Name _ 4/US', 'F']
+    text4 = ['1/John Doe _ 2/25 Street Name, Apt 5 _ 3/SE-12345 City Name', 'F']
+    text5 = [None, 'F']
 
     temp = text4
     result = parse(temp[0], temp[1],False)
