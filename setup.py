@@ -25,6 +25,7 @@ setup(
         'pandas==2.2.2',
         'pyyaml==6.0.1',
         'xlsxwriter==3.2.0',
+        'requests==2.32.3',
         # List your project dependencies here
     ],
     data_files=[
