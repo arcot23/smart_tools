@@ -2,9 +2,10 @@ from setuptools import setup, find_packages
 
 setup(
     name='smart_tools',
-    version='0.4',
+    version='0.5',
     description='A variety of smart tools to make analytics easy.',
     author='Prabhuram Venkatesan',
+    readme = "README.md",
     packages=find_packages(),
     entry_points={
         'console_scripts': [
