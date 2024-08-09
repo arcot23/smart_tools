@@ -1,5 +1,6 @@
 ---
 nsample: 10
+output_filename: 'dissect_result'
 read_csv:
   skipheader: 0
   skipfooter: 0

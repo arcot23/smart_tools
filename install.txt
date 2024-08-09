@@ -10,5 +10,6 @@ python -m pip uninstall smart_tools
 python setup.py sdist
 python setup.py bdist_wheel
 
-twine upload dist/*
-twine upload --repository smart-tools
+python -m twine upload dist/*0.3*
+python -m twine upload dist/*
+python -m twine upload --repository smart-tools

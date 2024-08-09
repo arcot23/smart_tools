@@ -37,7 +37,7 @@ def main():
     df_all = dissect_from_dir(dir=args['dir'], file=args['file'], sep=args['sep'], nsample=configs['nsample'], slicers=args['slicers'], colnames = args['cols'])
 
     print('**Result:**')
-    output_path = os.path.join(args['dir'], f'dissect_result.{args["to"]}')
+    output_path = os.path.join(args['dir'], f'{configs["output_filename"]}.{args["to"]}')
     print(f'- {df_all.shape} rows & columns in `{output_path}`.')
     if args['to'] == 'xlsx':
         df_all.to_excel(output_path, index=False)
