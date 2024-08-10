@@ -10,10 +10,10 @@ def main():
     parser.add_argument("file", help="Input file or files (wildcard)")
 
     # Adding optional arguments
-    parser.add_argument("--sep", default=",", help="Column separator")
-    parser.add_argument("--replace", action="store_true", default=False, help="Replace output file if it already exists")
+    parser.add_argument("--sep", default=",", help="Column separator (default: ,)")
+    parser.add_argument("--replace", action="store_true", default=False, help="Replace output file if it already exists (default: false)")
     parser.add_argument('--to', choices=['xlsx', 'json'], default='xlsx',
-                        help='How to output dissected result: to_xls|to_json')
+                        help='Morph to xlsx or json (default: xlsx)')
 
     args = vars(parser.parse_args())
 

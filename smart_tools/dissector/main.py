@@ -12,13 +12,13 @@ def main():
     # parser.add_argument('--from', choices=['csv', 'xls'], default='csv',
     #                     help='How to process files: as_csv|as_xls')
     parser.add_argument('-t', '--to', choices=['xlsx', 'json', 'csv'], default='xlsx',
-                        help='Dissected as one of: xlsx or json. Default is xlsx.')
-    parser.add_argument('-s','--sep', default=',', help='Column separator')
+                        help='Save result to xlsx or json or csv (default: `xlsx`)')
+    parser.add_argument('-s','--sep', default=',', help='Column separator (default: `,`)')
     parser.add_argument('--slicers', nargs='*', default=[''],
-                        help='Informs how to slice data. Default is "" for no slicing.')
+                        help='Informs how to slice data (default: '' for no slicing)')
     parser.add_argument('-c', '--cols', nargs='*',
-                        help='If present, first row will not be used for column names. No duplicates allowed.')
-    parser.add_argument('--config', default='.\config\dissector_config.yaml', help='Config file for meta data. Defaults to `.\config\dissector_config.yaml`')
+                        help='If not present, first row will be used for column names. No duplicates allowed')
+    parser.add_argument('--config', default='.\config\dissector_config.yaml', help='Config file for meta data (default: `.\config\dissector_config.yaml`)')
 
     args = vars(parser.parse_args())
 

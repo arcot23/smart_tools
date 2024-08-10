@@ -8,7 +8,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name='smart_tools',
-    version='0.8',
+    version='0.9',
     description='A variety of smart tools to make analytics easy.',
     author='Prabhuram Venkatesan',
     readme = "README.md",
@@ -19,6 +19,7 @@ setup(
         'console_scripts': [
             'dissector=smart_tools.dissector.main:main',
             'morpher=smart_tools.morpher.main:main',
+            'comparator=smart_tools.comparator.main:main',
         ],
     },
     install_requires=[
