@@ -4,6 +4,7 @@ import yaml
 
 from smart_tools.dissector.dirdissector import dissect_from_dir
 
+
 def main():
     parser = argparse.ArgumentParser()
 
@@ -11,16 +12,24 @@ def main():
     parser.add_argument('file', type=str, help='Input file (for multiple files use wildcard)')
     # parser.add_argument('--from', choices=['csv', 'xls'], default='csv',
     #                     help='How to process files: as_csv|as_xls')
-    parser.add_argument('-t', '--to', choices=['xlsx', 'json', 'csv'], default='xlsx',
+    parser.add_argument('--to', choices=['xlsx', 'json', 'csv'], default='xlsx',
                         help='Save result to xlsx or json or csv (default: `xlsx`)')
-    parser.add_argument('-s','--sep', default=',', help='Column separator (default: `,`)')
+    parser.add_argument('--sep', default=',', help='Column separator (default: `,`)')
     parser.add_argument('--slicers', nargs='*', default=[''],
                         help='Informs how to slice data (default: '' for no slicing)')
-    parser.add_argument('-c', '--cols', nargs='*',
+    parser.add_argument('--nsample', type= int, default='10',
+                        help='Number of samples (default: 10)')
+    parser.add_argument('--outfile', type= str, default='dissect_result',
+                        help='Output file name (default: dissect_result)')
+    parser.add_argument('--cols', nargs='*',
                         help='If not present, first row will be used for column names. No duplicates allowed')
-    parser.add_argument('--config', default='.\config\dissector_config.yaml', help='Config file for meta data (default: `.\config\dissector_config.yaml`)')
+    parser.add_argument('--config', default='.\config\dissector_config.yaml',
+                        help='Config file for meta data (default: `.\config\dissector_config.yaml`)')
 
     args = vars(parser.parse_args())
+
+    if not os.path.isabs(args['config']): args['config'] = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                                                                        args['config'])
 
     print('**Arguments:**')
     for arg in args:
@@ -29,15 +38,16 @@ def main():
     with open(args['config'], 'r') as f:
         configs = yaml.safe_load(f)
 
-    print('**Config:**')
-    for config in configs:
-        print(f'- {config}: `{configs[config]}`')
+    # print('**Config:**')
+    # for config in configs:
+    #     print(f'- {config}: `{configs[config]}`')
 
     print('**Process:**')
-    df_all = dissect_from_dir(dir=args['dir'], file=args['file'], sep=args['sep'], nsample=configs['nsample'], slicers=args['slicers'], colnames = args['cols'])
+    df_all = dissect_from_dir(dir=args['dir'], file=args['file'], sep=args['sep'], nsample=args['nsample'],
+                              slicers=args['slicers'], colnames=args['cols'])
 
     print('**Result:**')
-    output_path = os.path.join(args['dir'], f'{configs["output_filename"]}.{args["to"]}')
+    output_path = os.path.join(args['dir'], f'{args["outfile"]}.{args["to"]}')
     print(f'- {df_all.shape} rows & columns in `{output_path}`.')
     if args['to'] == 'xlsx':
         df_all.to_excel(output_path, index=False)

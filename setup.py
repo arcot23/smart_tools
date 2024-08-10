@@ -30,7 +30,7 @@ setup(
         # List your project dependencies here
     ],
     data_files=[
-        ('config', ['config/dissector_config.yaml', 'config/iban_config.yaml']),
+        ('config', ['smart_tools/dissector/config/dissector_config.yaml', 'smart_tools/dissector/config/iban_config.yaml']),
     ],
     python_requires='>=3.8',
     project_urls = {
