@@ -13,8 +13,8 @@ def main():
     # parser.add_argument('--from', choices=['csv', 'xls'], default='csv',
     #                     help='How to process files: as_csv|as_xls')
     parser.add_argument('--to', choices=['xlsx', 'json', 'csv'], default='xlsx',
-                        help='Save result to xlsx or json or csv (default: `xlsx`)')
-    parser.add_argument('--sep', default=',', help='Column separator (default: `,`)')
+                        help='Save result to xlsx or json or csv (default: xlsx)')
+    parser.add_argument('--sep', default=',', help='Column separator (default: ,)')
     parser.add_argument('--slicers', nargs='*', default=[''],
                         help='Informs how to slice data (default: '' for no slicing)')
     parser.add_argument('--nsample', type= int, default='10',
@@ -28,6 +28,10 @@ def main():
 
     if not os.path.isabs(args['config']): args['config'] = os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                                                         args['config'])
+
+    if not os.path.exists(args['config']):
+        print(f"Config file `{args['config']}` missing.")
+        return 1
 
     print('**Arguments:**')
     for arg in args:
@@ -53,6 +57,8 @@ def main():
         df_all.to_json(output_path, orient='records', indent=4)
     elif args['to'] == 'csv':
         df_all.to_csv(output_path, index=False)
+
+    return 0
 
 
 if __name__ == '__main__':

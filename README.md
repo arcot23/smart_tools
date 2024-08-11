@@ -26,9 +26,9 @@ The output also presents other additional info:
 - size: file size of the input file in bytes.
 
 ```commandline
-usage: dissector.py [-h] [-t {xlsx,json,csv}] [-s SEP]
-                    [--slicers [SLICERS ...]] [-c [COLS ...]]
-                    [--config CONFIG]
+usage: dissector.exe [-h] [--to {xlsx,json,csv}] [--sep SEP]
+                    [--slicers [SLICERS ...]] [--nsample NSAMPLE]
+                    [--outfile OUTFILE] [--config CONFIG]
                     dir file
 
 positional arguments:
@@ -37,14 +37,12 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-  -t {xlsx,json,csv}, --to {xlsx,json,csv}
-                        Save result to xlsx or json or csv (default: `xlsx`)
-  -s SEP, --sep SEP     Column separator (default: `,`)
+  --to {xlsx,json,csv}  Save result to xlsx or json or csv (default: xlsx)
+  --sep SEP             Column separator (default: ,)
   --slicers [SLICERS ...]
                         Informs how to slice data (default: for no slicing)
-  -c [COLS ...], --cols [COLS ...]
-                        If not present, first row will be used for column
-                        names. No duplicates allowed
+  --nsample NSAMPLE     Number of samples (default: 10)
+  --outfile OUTFILE     Output file name (default: dissect_result)
   --config CONFIG       Config file for meta data (default:
                         `.\config\dissector_config.yaml`)
 ```
@@ -54,17 +52,15 @@ the working directory.
 
 ```yaml
 ---
-nsample: 10
 read_csv:
-  skipheader: 0
+  skiprows: 0
   skipfooter: 0
-  engine: python
-  encoding: 'utf-8'
+  engine: 'python' # {'c', 'python', 'pyarrow'}
+  encoding: 'latin-1' # {'utf-8', 'latin-1'}
   quotechar: '"'
-  on_bad_lines: 'warn'
+  on_bad_lines: 'warn' # {'error', 'warn', 'skip'}
   dtype: 'str'
   keep_default_na: false
-
 ```
 
 ### Examples
