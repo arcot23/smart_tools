@@ -47,8 +47,7 @@ optional arguments:
                         `.\config\dissector_config.yaml`)
 ```
 
-Before running the command, make sure a `yaml` config file is created and saved as `.\config\dissector_config.yaml` at
-the working directory.
+Ensure that a yaml config file is present at `.\config\dissector_config.yaml` in relation to `dissector.exe` prior to executing the command.
 
 ```yaml
 ---

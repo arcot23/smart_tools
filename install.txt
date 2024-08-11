@@ -3,12 +3,16 @@ pyinstaller smart_tools --onefile --name tool1
 pyinstaller smart_tools/dissector/main.py --onefile --name dissector
 pyinstaller smart_tools/morpher/main.py --onefile --name morpher
 
+python -m pip install -r requirements.txt
 python -m pip list
 python -m pip install dist/smart_tools-0.1-py3-none-any.whl
 python -m pip uninstall smart_tools
 
-del .\dist\*.*
+#old type build
 python setup.py sdist
 python setup.py bdist_wheel
-python -m twine upload dist/*
 
+#new build with pyproject.toml
+del .\dist\*.*
+python -m build
+python -m twine upload dist/* --verbose
