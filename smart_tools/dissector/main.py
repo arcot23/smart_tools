@@ -21,8 +21,6 @@ def main():
                         help='Number of samples (default: 10)')
     parser.add_argument('--outfile', type= str, default='dissect_result',
                         help='Output file name (default: dissect_result)')
-    parser.add_argument('--cols', nargs='*',
-                        help='If not present, first row will be used for column names. No duplicates allowed')
     parser.add_argument('--config', default='.\config\dissector_config.yaml',
                         help='Config file for meta data (default: `.\config\dissector_config.yaml`)')
 
@@ -38,13 +36,13 @@ def main():
     with open(args['config'], 'r') as f:
         configs = yaml.safe_load(f)
 
-    # print('**Config:**')
-    # for config in configs:
-    #     print(f'- {config}: `{configs[config]}`')
+    print('**Config:**')
+    for config in configs:
+        print(f'- {config}: `{configs[config]}`')
 
     print('**Process:**')
     df_all = dissect_from_dir(dir=args['dir'], file=args['file'], sep=args['sep'], nsample=args['nsample'],
-                              slicers=args['slicers'], colnames=args['cols'])
+                              slicers=args['slicers'], **configs['read_csv'])
 
     print('**Result:**')
     output_path = os.path.join(args['dir'], f'{args["outfile"]}.{args["to"]}')

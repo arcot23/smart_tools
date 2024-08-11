@@ -8,11 +8,9 @@ import pandas as pd
 from smart_tools.dissector.dfdissector import dissect_from_frame
 
 
-def dissect_from_file(file, filetype='csv', sep=';', slicers=[''], nsample=5, skiprows=0, skipfooter=0,
-                      encoding='utf-8', names = None):
+def dissect_from_file(file, filetype='csv', sep=';', slicers=[''], nsample=5, **kwargs):
     if filetype.lower().strip() == 'csv':
-        df = pd.read_csv(file, sep=sep, keep_default_na=False, skiprows=skiprows, skipfooter=skipfooter,
-                         engine='python', names=names, encoding=encoding, quotechar='"', on_bad_lines='warn', dtype='str')
+        df = pd.read_csv(file, sep=sep, **kwargs)
     filename = os.path.basename(file)
 
     for slice in slicers:
