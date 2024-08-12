@@ -43,6 +43,14 @@ def parse(text, option=None, get_option=True, line_sep=' _ ', has_acct=True):
 
         return country_dict
 
+    response_dict = {'text': text, 'option': option, 'has_text': False, 'total_lines': None,
+                     'has_acct': False, 'has_bic': False,
+                     'has_iban': False, 'acct': None, 'line1': None, 'line2': None,
+                     'line3': None, 'line4': None, 'bic': None,
+                     'iban': None, 'name': None, 'country': None}
+
+    if text is None: return response_dict
+
     if not get_option and option is None:
         raise TypeError("Expected `option` when `get_option` is False.")
     if option not in ['A', 'B', 'D', 'F', 'K', '']:
@@ -50,26 +58,13 @@ def parse(text, option=None, get_option=True, line_sep=' _ ', has_acct=True):
     if get_option and option is not None:
         warnings.warn("Process will override `option`. To disable, set `get_option` to False.")
 
-    if text is None: text = ""
-    has_text = False
-    total_lines = None
-    if len(text.strip()) > 0: has_text = True
-
+    if len(text.strip()) > 0: response_dict['has_text'] = True
     values = text.split(line_sep)
-
-    text_is_valid = None
-
     line_start_index = 0
-    response_dict = {'text': text, 'option': option, 'has_text': has_text, 'total_lines': total_lines, 'text_is_valid': text_is_valid,
-                     'has_acct': False, 'has_bic': False,
-                     'has_iban': False, 'acct': None, 'line1': None, 'line2': None,
-                     'line3': None, 'line4': None, 'bic': None,
-                     'iban': None, 'name': None, 'country': None}
 
-    if not has_text: return response_dict
+    ###########
 
     response_dict['total_lines'] = len(values)
-    # response_dict['text_is_valid'] =  is_valid(text,option,line_sep)
 
     if text.startswith('/'):
         response_dict['acct'] = re.search(f'{rp.ACCT}', values[0]).group(1)

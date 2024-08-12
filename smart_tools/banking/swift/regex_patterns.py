@@ -1,7 +1,8 @@
 
 BIC = '([A-Z]{4})([A-Z]{2})([A-Z0-9]{2})([A-Z0-9]{3})?'
 # pattern = "^([a-zA-Z]{2}\d{2})(\d{4}\d{4}\d{4}\d{4}\d{2})$" #simple iban
-IBAN = "\/+([A-Z]{2})(\d{2})([A-Z\d]{1,30})" #flexible iban
+IBAN_ACCT = "\/+([A-Z]{2})(\d{2})([A-Z\d]{1,30})" #flexible iban
+IBAN = "\/*([A-Z]{2})(\d{2})([A-Z\d]{1,30})" #https://rubular.com/r/erywjQ08BtZR1z
 ACCT = '\/+([a-zA-Z0-9/\-?:().,\'+]{,34})'
 CHARS_X = '[a-zA-Z0-9/\-?:().,\'+]{,34}'
 

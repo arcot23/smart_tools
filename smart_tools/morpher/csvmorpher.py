@@ -2,10 +2,14 @@ import pandas as pd
 import os
 import warnings
 
-def filemorph(from_file, sep, to, replace = False, skiprows=0, skipfooter=0,
+def filemorph(from_file, sep, to, outdir = ".", replace = False, skiprows=0, skipfooter=0,
           try_encodings=['utf-8', 'latin1', 'iso-8859-1', 'cp1252'], names = None):
-    to_path = os.path.join(os.path.dirname(from_file), os.path.basename(from_file).replace('.', '_') + f'.{to}')
+    to_path = os.path.join(os.path.dirname(from_file), outdir)
 
+    if not os.path.exists():
+        os.makedirs(to_path, exist_ok=True)
+
+    to_path = os.path.join(to_path, os.path.basename(from_file).replace('.', '_') + f'.{to}')
     if os.path.exists(to_path) and not replace:
         msg = f'Skipped creating `{to_path}`. File already exists. Use --replace argument to overwrite.'
         warnings.warn(msg, Warning)

@@ -10,6 +10,6 @@ def dirmorph(args):
     print(f"files: {len(files)}")
 
     for file in files:
-        yield from filemorph(file, args['sep'], args['to'], args['replace'])
+        yield from filemorph(file, args['sep'], args['to'], args['replace'], outdir=args['outdir'])
 
     return

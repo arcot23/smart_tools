@@ -14,6 +14,8 @@ def main():
     parser.add_argument("--replace", action="store_true", default=False, help="Replace output file if it already exists (default: false)")
     parser.add_argument('--to', choices=['xlsx', 'json'], default='xlsx',
                         help='Morph to xlsx or json (default: xlsx)')
+    parser.add_argument('--outdir', type= str, default='.',
+                        help='Output directory (default: . [current directory])')
 
     args = vars(parser.parse_args())
 
