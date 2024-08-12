@@ -6,7 +6,7 @@ def filemorph(from_file, sep, to, outdir = ".", replace = False, skiprows=0, ski
           try_encodings=['utf-8', 'latin1', 'iso-8859-1', 'cp1252'], names = None):
     to_path = os.path.join(os.path.dirname(from_file), outdir)
 
-    if not os.path.exists():
+    if not os.path.exists(to_path):
         os.makedirs(to_path, exist_ok=True)
 
     to_path = os.path.join(to_path, os.path.basename(from_file).replace('.', '_') + f'.{to}')
