@@ -50,6 +50,11 @@ def main():
 
     print('**Result:**')
     output_path = os.path.join(args['dir'], f'{args["outfile"]}.{args["to"]}')
+
+    if not os.path.exists(os.path.dirname(output_path)):
+        print(f"- created directory `{os.path.dirname(output_path)}`.")
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
     print(f'- {df_all.shape} rows & columns in `{output_path}`.')
     if args['to'] == 'xlsx':
         df_all.to_excel(output_path, index=False)
