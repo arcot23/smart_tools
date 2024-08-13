@@ -2,8 +2,9 @@ import pandas as pd
 import os
 import warnings
 
-def filemorph(from_file, sep, to, outdir = ".", replace = False, skiprows=0, skipfooter=0,
-          try_encodings=['utf-8', 'latin1', 'iso-8859-1', 'cp1252'], names = None):
+
+def filemorph(from_file, sep, to, outdir=".", replace=False, try_encodings=['utf-8', 'latin1', 'iso-8859-1', 'cp1252'],
+              **kwargs):
     to_path = os.path.join(os.path.dirname(from_file), outdir, os.path.basename(from_file).replace('.', '_') + f'.{to}')
 
     if not os.path.exists(os.path.dirname(to_path)):
@@ -17,8 +18,7 @@ def filemorph(from_file, sep, to, outdir = ".", replace = False, skiprows=0, ski
     print(f"- file: `{os.path.basename(from_file)}`")
     for encoding in try_encodings:
         try:
-            df = pd.read_csv(from_file, sep=sep, keep_default_na=False, skiprows=skiprows, skipfooter=skipfooter,
-                                 engine='python', names=names, encoding=encoding, quotechar='"', on_bad_lines='warn', dtype='str')
+            df = pd.read_csv(from_file, sep=sep, encoding=encoding, **kwargs)
             break
         except Exception as e:
             print(f'    - Error processing with `{encoding}` encoding: {str(e)}')
@@ -31,4 +31,3 @@ def filemorph(from_file, sep, to, outdir = ".", replace = False, skiprows=0, ski
         df.to_json(to_path, orient="records", indent=4)
 
     yield encoding, to_path
-

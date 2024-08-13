@@ -3,13 +3,13 @@ import os
 import warnings
 from smart_tools.morpher.csvmorpher import filemorph
 
-def dirmorph(args):
+def dirmorph(args, **kwargs):
     path = os.path.join(args['dir'], args['file'])
 
     files = glob.glob(path)
     print(f"files: {len(files)}")
 
     for file in files:
-        yield from filemorph(file, args['sep'], args['to'], outdir=args['outdir'], replace=args['replace'])
+        yield from filemorph(file, args['sep'], args['to'], outdir=args['outdir'], replace=args['replace'], **kwargs)
 
     return

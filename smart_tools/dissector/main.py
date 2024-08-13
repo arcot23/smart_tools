@@ -19,8 +19,8 @@ def main():
                         help='Informs how to slice data (default: '' for no slicing)')
     parser.add_argument('--nsample', type= int, default='10',
                         help='Number of samples (default: 10)')
-    parser.add_argument('--outfile', type= str, default='dissect_result',
-                        help='Output file name (default: dissect_result)')
+    parser.add_argument('--outfile', type= str, default='.\dissect_result',
+                        help='Output directory and file name (default: .\dissect_result)')
     parser.add_argument('--config', default='.\config\dissector_config.yaml',
                         help='Config file for meta data (default: `.\config\dissector_config.yaml`)')
 

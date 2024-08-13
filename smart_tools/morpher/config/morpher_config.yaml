@@ -1,0 +1,10 @@
+---
+read_csv:
+  skiprows: 0
+  skipfooter: 0
+  engine: 'python' # {'c', 'python', 'pyarrow'}
+  quotechar: '"'
+  on_bad_lines: 'warn' # {'error', 'warn', 'skip'}
+  dtype: 'str'
+  keep_default_na: false
+
