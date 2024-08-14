@@ -9,12 +9,12 @@ def main():
     parser = argparse.ArgumentParser()
 
     parser.add_argument('dir', type=str, help='Input directory')
-    parser.add_argument('file', type=str, help='Input file (for multiple files use wildcard)')
+    parser.add_argument('file', type=str, help='Input file or files (for multiple files use wildcard)')
     # parser.add_argument('--from', choices=['csv', 'xls'], default='csv',
     #                     help='How to process files: as_csv|as_xls')
+    parser.add_argument('--sep', default=',', help='Column separator (default: ,)')
     parser.add_argument('--to', choices=['xlsx', 'json', 'csv'], default='xlsx',
                         help='Save result to xlsx or json or csv (default: xlsx)')
-    parser.add_argument('--sep', default=',', help='Column separator (default: ,)')
     parser.add_argument('--slicers', nargs='*', default=[''],
                         help='Informs how to slice data (default: '' for no slicing)')
     parser.add_argument('--nsample', type= int, default='10',
@@ -45,7 +45,7 @@ def main():
         print(f'- {config}: `{configs[config]}`')
 
     print('**Process:**')
-    df_all = dissect_from_dir(dir=args['dir'], file=args['file'], sep=args['sep'], nsample=args['nsample'],
+    df_all = dissect_from_dir(dir=args['dir'], file_wildcard=args['file'], sep=args['sep'], nsample=args['nsample'],
                               slicers=args['slicers'], **configs['read_csv'])
 
     print('**Result:**')

@@ -76,7 +76,7 @@ def parse(text, option=None, get_option=True, line_sep=' _ ', has_acct=True):
     for index, value in enumerate(range(line_start_index, len(values))):
         response_dict[f'line{index + 1}'] = values[value]
 
-    if response_dict['option'] == 'A' and bic.is_bic(response_dict['line1']):
+    if option == 'A' and bic.is_bic(response_dict['line1']):
         response_dict['has_bic'] = True
         response_dict['bic'] = bic.parse(response_dict['line1'])
 

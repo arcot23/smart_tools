@@ -7,8 +7,8 @@ def main():
 
     parser.add_argument('file1', type=str, help='File to compare')
     parser.add_argument('file2', type=str, help='File to compare with')
-    parser.add_argument('-s','--sep', default=',', help='Column separator (default: `,`)')
-    parser.add_argument('-t', '--to', choices=['xlsx', 'json', 'csv'], default='xlsx',
+    parser.add_argument('--sep', default=',', help='Column separator (default: `,`)')
+    parser.add_argument('--to', choices=['xlsx', 'json', 'csv'], default='xlsx',
                         help='Save result to xlsx or json or csv (default: `xlsx`)')
 
     args = vars(parser.parse_args())

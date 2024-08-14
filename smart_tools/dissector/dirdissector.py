@@ -6,8 +6,8 @@ import pandas as pd
 from smart_tools.dissector.filedissector import dissect_from_file
 
 
-def dissect_from_dir(dir, file, sep, nsample=10, slicers=[''], **kwargs):
-    files = glob.glob(os.path.join(dir, file))
+def dissect_from_dir(dir, file_wildcard, sep, nsample=10, slicers=[''], **kwargs):
+    files = glob.glob(os.path.join(dir, file_wildcard))
     df_all = []
     print(f'files: {len(files)}')
     for file in files:
