@@ -1,0 +1,11 @@
+---
+read_csv:
+  skiprows: 0
+  skipfooter: 0
+  engine: 'python' # {'c', 'python', 'pyarrow'}
+  encoding: 'latin-1' # {'utf-8', 'latin-1'}
+  quotechar: '"'
+  on_bad_lines: 'warn' # {'error', 'warn', 'skip'}
+  dtype: 'str'
+  keep_default_na: false
+
