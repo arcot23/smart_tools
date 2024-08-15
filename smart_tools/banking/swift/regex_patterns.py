@@ -5,6 +5,7 @@ IBAN_ACCT = "\/+([A-Z]{2})(\d{2})([A-Z\d]{1,30})" #flexible iban
 IBAN = "\/*([A-Z]{2})(\d{2})([A-Z\d]{1,30})" #https://rubular.com/r/erywjQ08BtZR1z
 ACCT = '\/+([ a-zA-Z0-9/\-?:().,\'+]{,34})'
 ACCT_WO_SPACE = '\/+([a-zA-Z0-9/\-?:().,\'+]{,34})'
+OPTION_F2_ACCT = '^(ARNU|CCPT|CUST|DRLC|EMPL|NIDN|SOSE|TXID)\/([A-Z]{2})\/(.*)'
 CHARS_X = '[a-zA-Z0-9/\-?:().,\'+]{,34}'
 
 # OPTIONA = '(\/+[a-zA-Z0-9\/\-?:().,\'+]{,34})?#([0-9]\/[^#]+)'

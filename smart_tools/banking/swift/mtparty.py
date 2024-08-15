@@ -27,19 +27,21 @@ def find_option(text, line_sep=" _ ", has_acct=True):
 
 def parse(text, option=None, get_option=True, line_sep=' _ ', has_acct=True):
     def fetch_country(dict):
-        country_dict = {'bic_country_code': None, 'optionf_country_code': None, 'iban_country_code': None}
+        country_dict = {'bic_country_code': None, 'optionf1_country_code': None, 'iban_country_code': None}
 
-        if response_dict['has_bic']:
-            country_dict['bic_country_code'] = response_dict['bic']['country_code']
+        if dict['has_bic']:
+            country_dict['bic_country_code'] = dict['bic']['country_code']
 
-        if response_dict['option'] == 'F':
+        if dict['option'] == 'F':
             for item in dict:
                 if not dict[item] is None:
-                    if re.search('line[1234]', item) and re.search('3\/(\w+)', dict[item]): country_dict[
+                    if re.search('line[123456]', item) and re.search('3\/(\w+)', dict[item]): country_dict[
                         'optionf_country_code'] = re.search('3\/(\w+)', dict[item]).group(1)
+                    elif dict['has_acct'] and re.search(f'{rp.OPTION_F2_ACCT}', dict[item]): country_dict[
+                        'optionf_country_code'] = re.search(f'{rp.OPTION_F2_ACCT}', dict[item]).group(2)
 
-        if response_dict['has_iban']:
-            country_dict['iban_country_code'] = response_dict['iban']['country_code']
+        if dict['has_iban']:
+            country_dict['iban_country_code'] = dict['iban']['country_code']
 
         return country_dict
 
@@ -66,8 +68,12 @@ def parse(text, option=None, get_option=True, line_sep=' _ ', has_acct=True):
 
     response_dict['total_lines'] = len(values)
 
-    if text.startswith('/'):
+    if values[0].startswith('/'):
         response_dict['acct'] = re.search(f'{rp.ACCT}', values[0]).group(1)
+        response_dict['has_acct'] = True
+        line_start_index = 1
+    elif re.search(f'{rp.OPTION_F2_ACCT}', values[0]):
+        response_dict['acct'] = values[0]
         response_dict['has_acct'] = True
         line_start_index = 1
     else:
