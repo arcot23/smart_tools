@@ -10,8 +10,9 @@ def main():
     text3 = ['/GB82WEST12345698765432 _ 1/John Doe _ 2/25 Street Name, Apt 5 _ 3/SE-12345 City Name _ 4/US', 'F']
     text4 = ['1/John Doe _ 2/25 Street Name, Apt 5 _ 3/SE-12345 City Name', 'F']
     text5 = [None, 'F']
+    text6 = ['CUST/KY/BNPP/1381913/DKJSKDJSKSK _ 1/John Doe _ 2/25 Street Name, Apt 5 _ 3/SE-12345 City Name', 'F']
 
-    temp = text4
+    temp = text6
     result = parse(temp[0], temp[1],False)
     result_json = json.dumps(result, indent=4)
     print(result_json)

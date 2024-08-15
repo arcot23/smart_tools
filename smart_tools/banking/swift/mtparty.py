@@ -27,7 +27,7 @@ def find_option(text, line_sep=" _ ", has_acct=True):
 
 def parse(text, option=None, get_option=True, line_sep=' _ ', has_acct=True):
     def fetch_country(dict):
-        country_dict = {'bic_country_code': None, 'optionf1_country_code': None, 'iban_country_code': None}
+        country_dict = {'bic_country_code': None, 'optionf1_country_code': None, 'optionf2_country_code': None, 'iban_country_code': None}
 
         if dict['has_bic']:
             country_dict['bic_country_code'] = dict['bic']['country_code']
@@ -36,9 +36,9 @@ def parse(text, option=None, get_option=True, line_sep=' _ ', has_acct=True):
             for item in dict:
                 if not dict[item] is None:
                     if re.search('line[123456]', item) and re.search('3\/(\w+)', dict[item]): country_dict[
-                        'optionf_country_code'] = re.search('3\/(\w+)', dict[item]).group(1)
-                    elif dict['has_acct'] and re.search(f'{rp.OPTION_F2_ACCT}', dict[item]): country_dict[
-                        'optionf_country_code'] = re.search(f'{rp.OPTION_F2_ACCT}', dict[item]).group(2)
+                        'optionf1_country_code'] = re.search('3\/(\w+)', dict[item]).group(1)
+            if dict['has_acct'] and re.search(f'{rp.OPTION_F2_ACCT}', dict['acct']): country_dict[
+                'optionf2_country_code'] = re.search(f'{rp.OPTION_F2_ACCT}', dict['acct']).group(2)
 
         if dict['has_iban']:
             country_dict['iban_country_code'] = dict['iban']['country_code']
