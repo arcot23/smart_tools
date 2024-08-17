@@ -1,29 +1,54 @@
+# README
+
+**smart_tools** is a package with a set of command-line tools together with its python library. This comprises:
+
+- [dissector](#dissector), analyze one or files
+- [morpher](#morpher), convert files from one format to another
+- [comparator](#comparator), compare two files for differences
+- [aggregator](#comparator), append two or more files row-wise
+- [fusioner](#fusioner), transform columns in a file
+
+To get help, simply run respective executable with `-h` argument. For example dissector can be run with `dissector.exe -h`.  Run the command with positional arguments which are mandatory, but review the optional arguments `dissector.exe .\dir file.txt`.
+
+To easily access these command-line tools, add the executable's directory to PATH (in Windows) environment variable `$Env:PATH`. Most tools also depends on a `config.yaml` file for certain additional settings. 
+
+```text
+dissector.exe
+morpher.exe
+comparator.exe
+aggregator.exe
+fusioner.exe
+└── config/
+    ├── dissector_config.yaml
+    ├── morpher_config.yaml
+    ├── comparator_config.yaml
+    ├── aggregator_config.yaml
+    ├── fusioner_config.yaml
+    └── ...
+```
+
+All command-line tools takes an input and generates an output. Input is typically a directory `dir` together with a file or files `file`. Output is created under `dir` which comprises an output directory and output files. `dir `can be a relative path from where the command is run or an absolute path. The folder hierarchy listed below shows the structure.
+
+```text
+dir
+├── file.txt
+├── ...
+├── .d/
+│   └── dissector_result.xlsx
+├── .m/
+│   └── morpher_result.xlsx
+├── .c/
+│   └── comparator_result.xlsx
+├── .a/
+│   └── aggregator_result.xlsx
+└── .f/
+    └── fusioner_result.xlsx
+```
+
 # Dissector
 
-## Using the dissector command-line tool
+**dissector.exe** is a command-line tool to analyze CSV files. The input `file` can be a single file or files from a directory `dir` that have a common column separator `sep`. The _dissected_ results can be generated in the form of an excel file (`xlsx`) or text (`json` or `csv`). By default, the analysis is run on the entire content of the file i.e., without any filters. But `slicers` help slice data and run analysis. 
 
-**dissector.exe** is a command-line tool to analyze CSV files. The input `file` can be a single file or files from a directory `dir` that have a common column separator `sep`. The _dissected_ results can be generated in the form of an excel file (`xlsx`) or text (`json` or `csv`). By default, the analysis is run on the entire content of the file i.e., without any filters. But `slicers` help slice data and run analysis. The output gives the following
-information for each column element in the input file(s).
-
-- column: column name.
-- strlen: minimum and maximum string length.
-- nnull: count of NANs and empty strings.
-- nrow: number of rows.
-- nunique: number of unique values.
-- nvalue: number of rows with values.
-- freq: frequency distribution of top n values. n is configured in `dissector_config.yaml`.
-- sample: a sample of top n values. n is configured in `dissector_config.yaml`.
-- symbols: non-alphanumic characters that are not in [a-zA-Z0-9]
-- n: column order.
-- filename: name of the input file from where the column was picked.
-- filetype: file type to which the file is associated to (e.g., csv).
-
-The output also presents other additional info:
-
-- slice: The _slice_ used to select. Slices represents _filter conditions_ to select subsets of rows within a dataset.
-- timestamp: file modified date timestamp of the input file.
-- hash: md5 hash of the input file.
-- size: file size of the input file in bytes.
 
 ```commandline
 usage: dissector.exe [-h] [--to {xlsx,json,csv}] [--sep SEP]
@@ -47,6 +72,29 @@ optional arguments:
                         `.\config\dissector_config.yaml`)
 ```
 
+
+The output gives the following information for each column element in the input file(s).
+
+- column: column name.
+- strlen: minimum and maximum string length.
+- nnull: count of NANs and empty strings.
+- nrow: number of rows.
+- nunique: number of unique values.
+- nvalue: number of rows with values.
+- freq: frequency distribution of top n values. n is configured in `dissector_config.yaml`.
+- sample: a sample of top n values. n is configured in `dissector_config.yaml`.
+- symbols: non-alphanumic characters that are not in [a-zA-Z0-9]
+- n: column order.
+- filename: name of the input file from where the column was picked.
+- filetype: file type to which the file is associated to (e.g., csv).
+
+The output also presents other additional info:
+
+- slice: The _slice_ used to select. Slices represents _filter conditions_ to select subsets of rows within a dataset.
+- timestamp: file modified date timestamp of the input file.
+- hash: md5 hash of the input file.
+- size: file size of the input file in bytes.
+
 Ensure that a yaml config file is present at `.\config\dissector_config.yaml` in relation to `dissector.exe` prior to executing the command.
 
 ```yaml
@@ -64,29 +112,21 @@ read_csv:
 
 ### Examples
 
-Fetch `*.csv` from `.\temp` and dissect them with `,` as column separator.
+- Fetch `*.csv` from `.\temp` and dissect them with `,` as column separator.
 
-```commandline
-dissector .\temp *.csv -s ,
-```
+    `dissector .\temp *.csv -s ,`
 
-Fetch `myfile.text` from `c:\temp` and dissect the file with `;` as column separator.
+- Fetch `myfile.text` from `c:\temp` and dissect the file with `;` as column separator.
 
-```commandline
-dissector c:\temp myfile.text -s ;
-```
+    `dissector c:\temp myfile.text -s ;`
 
-Fetch `myfile.text` from `c:\temp` and dissect the file with `;` as column separator by slicing the data with a filter on `COLUMN1 == 'VALUE'` and also without filtering any.
+- Fetch `myfile.text` from `c:\temp` and dissect the file with `;` as column separator by slicing the data with a filter on `COLUMN1 == 'VALUE'` and also without filtering any.
 
-```commandline
-dissector c:\temp myfile.text -s ; --slicers "" "COLUMN1 == 'VALUE'"
-```
+    `dissector c:\temp myfile.text -s ; --slicers "" "COLUMN1 == 'VALUE'"`
 
-Fetch `myfile.text` from `c:\temp` and dissect the file with TAB `\t` as column separator by slicing the data with a filter on a column name that has a space in it    ` COLUMN 1 == 'VALUE'`.
+- Fetch `myfile.text` from `c:\temp` and dissect the file with TAB `\t` as column separator by slicing the data with a filter on a column name that has a space in it    ` COLUMN 1 == 'VALUE'`.
 
-```commandline
-dissector c:\temp myfile.txt -sep ';' --slicers "" "`COLUMN 1` == 'VALUE'"
-```
+    `dissector c:\temp myfile.txt -sep ';' --slicers "" "`COLUMN 1` == 'VALUE'"`
 
 Using powershell, read the arguments from a text file.
 
@@ -103,8 +143,6 @@ Here is a sample args.txt file.
 ```
 
 # Morpher
-
-## Using the morpher command-line tool
 
 **morpher.exe** is a command-line tool to convert format of a file or files  in a directory that have a common column separator. For example, convert `file` delimited by `sep` in `dir` from  csv to `xlsx` or csv to `json`.
 
@@ -124,8 +162,6 @@ optional arguments:
 
 # Comparator
 
-## Using the morpher command-line tool
-
 **comparator.exe** is a command-line tool to compare one file with another file.
 
 ```text
@@ -140,4 +176,47 @@ optional arguments:
   -s SEP, --sep SEP     Column separator (default: `,`)
   -t {xlsx,json,csv}, --to {xlsx,json,csv}
                         Save result to xlsx or json or csv (default: `xlsx`)
+```
+
+# Aggregator
+
+**aggregator.exe** is a command-line tool to aggregate two or more file together into one.
+
+```text
+usage: aggregator.py [-h] [--sep SEP] [--to {xlsx,json,csv}]
+                     [--outfile OUTFILE] [--config CONFIG]
+                     dir file
+
+positional arguments:
+  dir                   Input directory
+  file                  Input file or files (for multiple files use wildcard)
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --sep SEP             Column separator (default: `,`)
+  --to {xlsx,json,csv}  Save result to xlsx or json or csv (default: `xlsx`)
+  --outfile OUTFILE     Output directory and file name (default:
+                        .\.a\aggregated_result)
+  --config CONFIG       Config file for meta data (default:
+                        `.\config\aggregator_config.yaml`)
+```
+
+# Fusioner
+
+**aggregator.exe** is a command-line tool to aggregate two or more file together into one.
+
+```text
+usage: fusioner.py [-h] [--sep SEP] [--outfile OUTFILE] [--config CONFIG] file
+
+positional arguments:
+  file               Input file
+
+optional arguments:
+  -h, --help         show this help message and exit
+  --sep SEP          Column separator (default: ,)
+  --outfile OUTFILE  Output directory and file name (default:
+                     .\.f\fusioner_result)
+  --config CONFIG    Config file for ETL (default:
+                     `.\config\fusioner_config.toml`)
+
 ```

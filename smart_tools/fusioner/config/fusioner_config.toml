@@ -1,0 +1,13 @@
+[general]
+
+
+[[nameset]]
+column = "new_col"
+type = "csv"
+source = "tvg-id,tvg-name,group-title,channel,domain,cat,url"
+
+[[nameset]]
+column = "new_col"
+type = "csv"
+source = "tvg-id,tvg-name,group-title,channel,domain,cat,url"
+
