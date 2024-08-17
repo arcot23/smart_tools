@@ -1,11 +1,6 @@
 name: Weekly Build
 
-on:
-  schedule:
-    # This is ignored when running locally but defines the schedule if running in GitHub
-    - cron: "0 0 * * 1"
-
-  workflow_dispatch: # Allows manual triggers
+on: [push, fork]
 
 jobs:
   build:
