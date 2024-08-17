@@ -45,7 +45,7 @@ dir
     └── fusioner_result.xlsx
 ```
 
-# Dissector
+## Dissector
 
 **dissector.exe** is a command-line tool to analyze CSV files. The input `file` can be a single file or files from a directory `dir` that have a common column separator `sep`. The _dissected_ results can be generated in the form of an excel file (`xlsx`) or text (`json` or `csv`). By default, the analysis is run on the entire content of the file i.e., without any filters. But `slicers` help slice data and run analysis. 
 
@@ -142,7 +142,7 @@ Here is a sample args.txt file.
 .\temp#*.csv#-s#,
 ```
 
-# Morpher
+## Morpher
 
 **morpher.exe** is a command-line tool to convert format of a file or files  in a directory that have a common column separator. For example, convert `file` delimited by `sep` in `dir` from  csv to `xlsx` or csv to `json`.
 
@@ -160,7 +160,7 @@ optional arguments:
   --to {xlsx,json}  Morph to xlsx or json (default: xlsx)
 ```
 
-# Comparator
+## Comparator
 
 **comparator.exe** is a command-line tool to compare one file with another file.
 
@@ -178,7 +178,7 @@ optional arguments:
                         Save result to xlsx or json or csv (default: `xlsx`)
 ```
 
-# Aggregator
+## Aggregator
 
 **aggregator.exe** is a command-line tool to aggregate two or more file together into one.
 
@@ -201,7 +201,7 @@ optional arguments:
                         `.\config\aggregator_config.yaml`)
 ```
 
-# Fusioner
+## Fusioner
 
 **aggregator.exe** is a command-line tool to aggregate two or more file together into one.
 
