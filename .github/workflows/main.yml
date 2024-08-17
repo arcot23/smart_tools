@@ -19,4 +19,4 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Build the package
-      run: python setup.py sdist bdist_wheel
+      run: python build
