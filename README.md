@@ -2,7 +2,7 @@
 
 **smart_tools** is a package with a set of command-line tools together with its python library. This comprises:
 
-- [dissector](#dissector), analyze one or files
+- [dissector](#dissector), analyze one or files for data profiling
 - [morpher](#morpher), convert files from one format to another
 - [comparator](#comparator), compare two files for differences
 - [aggregator](#comparator), append two or more files row-wise
