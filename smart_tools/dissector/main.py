@@ -2,11 +2,11 @@ import os
 import argparse
 import yaml
 
-from smart_tools.dissector.dirdissector import dissect_from_dir
+from smart_tools.dissector.filedissector import dissect_from_dir
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Analyze one or files")
 
     parser.add_argument('dir', type=str, help='Input directory')
     parser.add_argument('file', type=str, help='Input file or files (for multiple files use wildcard)')
@@ -14,12 +14,12 @@ def main():
     #                     help='How to process files: as_csv|as_xls')
     parser.add_argument('--sep', default=',', help='Column separator (default: ,)')
     parser.add_argument('--to', choices=['xlsx', 'json', 'csv'], default='xlsx',
-                        help='Save result to xlsx or json or csv (default: xlsx)')
+                        help='Save output to xlsx or json or csv (default: xlsx)')
     parser.add_argument('--slicers', nargs='*', default=[''],
-                        help='Informs how to slice data (default: '' for no slicing)')
+                        help='List of conditions to slice data (default: '' for no slicing)')
     parser.add_argument('--nsample', type= int, default='10',
                         help='Number of samples (default: 10)')
-    parser.add_argument('--outfile', type= str, default='.\dissect_result',
+    parser.add_argument('--outfile', type= str, default='.\.d\dissect_result',
                         help='Output directory and file name (default: .\dissect_result)')
     parser.add_argument('--config', default='.\config\dissector_config.yaml',
                         help='Config file for meta data (default: `.\config\dissector_config.yaml`)')

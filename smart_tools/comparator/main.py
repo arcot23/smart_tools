@@ -18,7 +18,7 @@ def main():
         print(f'- {arg}: `{args[arg]}`')
 
     print('**Process:**')
-    result = filecomparator.compare(args['file1'], args['file2'],sep=args['sep'])
+    result = filecomparator.filecompare(args['file1'], args['file2'], sep=args['sep'])
 
     print('**Result:**')
     print(json.dumps(result, indent=4))

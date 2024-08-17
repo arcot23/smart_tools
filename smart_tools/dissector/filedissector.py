@@ -1,3 +1,4 @@
+import glob
 import hashlib
 import os
 import time
@@ -55,3 +56,18 @@ def get_file_property(path, date_time_format='%Y%m%d'):
     size = os.path.getsize(path)
 
     return {'filename': filename, 'timestamp': timestamp, 'hash': hash, 'size': size}
+
+
+def dissect_from_dir(dir, file_wildcard, sep, nsample=10, slicers=[''], **kwargs):
+    files = glob.glob(os.path.join(dir, file_wildcard))
+    df_all = []
+    print(f'files: {len(files)}')
+    for file in files:
+        for d in dissect_from_file(file, sep=sep, nsample=nsample, slicers=slicers, **kwargs):
+            df_all.append(d)
+    df_all = concat_dfs(df_all)
+    return df_all
+
+
+def concat_dfs(dfs):
+    return pd.concat(dfs)

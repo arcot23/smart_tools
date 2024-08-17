@@ -1,3 +1,5 @@
+import glob
+
 import pandas as pd
 import os
 import warnings
@@ -31,3 +33,15 @@ def filemorph(from_file, sep, to, outdir=".", replace=False, try_encodings=['utf
         df.to_json(to_path, orient="records", indent=4)
 
     yield encoding, to_path
+
+
+def dirmorph(args, **kwargs):
+    path = os.path.join(args['dir'], args['file'])
+
+    files = glob.glob(path)
+    print(f"files: {len(files)}")
+
+    for file in files:
+        yield from filemorph(file, args['sep'], args['to'], outdir=args['outdir'], replace=args['replace'], **kwargs)
+
+    return

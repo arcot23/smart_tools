@@ -44,7 +44,7 @@ def main():
         print(f'- {config}: `{configs[config]}`')
 
     print('**Process:**')
-    df = filefusioner.fusion(file, configs['nameset'], args['sep'])
+    df = filefusioner.filefusion(file, configs['nameset'], args['sep'])
 
     print('**Result:**')
     output_path = os.path.join(os.path.dirname(args["file"]), f'{args["outfile"]}.csv')

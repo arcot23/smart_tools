@@ -1,22 +1,23 @@
 import argparse
 import os
 import yaml
-from smart_tools.morpher.dirmorpher import dirmorph
+from smart_tools.morpher.filemorpher import dirmorph
+
 
 def main():
     # Initialize parser
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Convert files from one format to another")
 
     # Adding positional arguments
     parser.add_argument("dir", help="Input directory")
-    parser.add_argument("file", help="Input file or files (wildcard)")
+    parser.add_argument("file", help="Input file or files (for multiple files use wildcard)")
 
     # Adding optional arguments
     parser.add_argument("--sep", default=",", help="Column separator (default: ,)")
     parser.add_argument("--replace", action="store_true", default=False, help="Replace output file if it already exists (default: false)")
     parser.add_argument('--to', choices=['xlsx', 'json'], default='xlsx',
                         help='Morph to xlsx or json (default: xlsx)')
-    parser.add_argument('--outdir', type= str, default='.',
+    parser.add_argument('--outdir', type= str, default='.\.m',
                         help='Output directory (default: . [current directory])')
     parser.add_argument('--config', default='.\config\morpher_config.yaml',
                         help='Config file for meta data (default: `.\config\morpher_config.yaml`)')
