@@ -1,14 +1,37 @@
-# README
+# smart_tools: tools to make data analysis easy
 
 **smart_tools** is a package with a set of command-line tools together with its python library. This comprises:
 
+# Table of Contents
+
+- [Where to get it](#where-to-get-it)
+- [Dependencies](#dependencies)
+- [How to use command-line tools](#how-to-use-command-line-tools)
 - [dissector](#dissector), analyze one or files for data profiling
 - [morpher](#morpher), convert files from one format to another
 - [comparator](#comparator), compare two files for differences
 - [aggregator](#comparator), append two or more files row-wise
 - [fusioner](#fusioner), transform columns in a file
 
-To get help, simply run respective executable with `-h` argument. For example dissector can be run with `dissector.exe -h`.  Run the command with positional arguments which are mandatory, but review the optional arguments `dissector.exe .\dir file.txt`.
+# Where to get it
+
+The source code is currently hosted on GitHub at: https://github.com/arcot23/smart_tools
+
+Binary installers for the released version are available at the [Python Package Index (PyPI)](https://pypi.org/project/smart-tools/)
+
+```text
+# PyPI
+python -m pip install smart-tools
+```
+
+# Dependencies
+
+- [pandas](https://pandas.pydata.org/)
+- [yaml](https://pyyaml.org/)
+
+# How to use command-line tools
+
+To get help, simply run respective executable with `-h` argument from your terminal. For example dissector can be run with `dissector.exe -h`.  Run the command with positional arguments which are mandatory, but review the optional arguments `dissector.exe .\dir file.txt`.
 
 To easily access these command-line tools, add the executable's directory to PATH (in Windows) environment variable `$Env:PATH`. Most tools also depends on a `config.yaml` file for certain additional settings. 
 
@@ -45,7 +68,7 @@ dir
     └── fusioner_result.xlsx
 ```
 
-## Dissector
+# Dissector
 
 **dissector.exe** is a command-line tool to analyze CSV files. The input `file` can be a single file or files from a directory `dir` that have a common column separator `sep`. The _dissected_ results can be generated in the form of an excel file (`xlsx`) or text (`json` or `csv`). By default, the analysis is run on the entire content of the file i.e., without any filters. But `slicers` help slice data and run analysis. 
 
@@ -110,7 +133,7 @@ read_csv:
   keep_default_na: false
 ```
 
-### Examples
+**Examples**
 
 - Fetch `*.csv` from `.\temp` and dissect them with `,` as column separator.
 
@@ -126,23 +149,23 @@ read_csv:
 
 - Fetch `myfile.text` from `c:\temp` and dissect the file with TAB `\t` as column separator by slicing the data with a filter on a column name that has a space in it    ` COLUMN 1 == 'VALUE'`.
 
-    `dissector c:\temp myfile.txt -sep ';' --slicers "" "`COLUMN 1` == 'VALUE'"`
+     `dissector c:\temp myfile.txt -sep ';' --slicers "" "`COLUMN 1` == 'VALUE'"`
 
-Using powershell, read the arguments from a text file.
+     Using powershell, read the arguments from a text file.
 
-```powershell
-Get-Content args.txt | ForEach-Object {
-    $arguments = $_ -split '#'
-    & dissector.exe $arguments
-}
-```
-Here is a sample args.txt file.
+    ```powershell
+    Get-Content args.txt | ForEach-Object {
+        $arguments = $_ -split '#'
+        & dissector.exe $arguments
+    }
+    ```
+    Here is a sample args.txt file.
+  
+    ```
+    .\temp#*.csv#-s#,
+    ```
 
-```
-.\temp#*.csv#-s#,
-```
-
-## Morpher
+# Morpher
 
 **morpher.exe** is a command-line tool to convert format of a file or files  in a directory that have a common column separator. For example, convert `file` delimited by `sep` in `dir` from  csv to `xlsx` or csv to `json`.
 
@@ -160,7 +183,7 @@ optional arguments:
   --to {xlsx,json}  Morph to xlsx or json (default: xlsx)
 ```
 
-## Comparator
+# Comparator
 
 **comparator.exe** is a command-line tool to compare one file with another file.
 
@@ -178,7 +201,7 @@ optional arguments:
                         Save result to xlsx or json or csv (default: `xlsx`)
 ```
 
-## Aggregator
+# Aggregator
 
 **aggregator.exe** is a command-line tool to aggregate two or more file together into one.
 
@@ -201,7 +224,7 @@ optional arguments:
                         `.\config\aggregator_config.yaml`)
 ```
 
-## Fusioner
+# Fusioner
 
 **aggregator.exe** is a command-line tool to aggregate two or more file together into one.
 
