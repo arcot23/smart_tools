@@ -6,3 +6,4 @@
 /smart_tools.egg-info/
 /config/iban_lengths.txt
 /config/iban_registry.txt
+/smart_tools/.log/
