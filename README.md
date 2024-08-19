@@ -1,6 +1,6 @@
 # smart_tools: tools to make data analysis easy
 
-**smart_tools** is a package with a set of command-line tools together with its python library. This comprises:
+**smart_tools** contains a collection of command-line tools and a package with a set of command-line tools together with its python library. This comprises:
 
 # Table of Contents
 
