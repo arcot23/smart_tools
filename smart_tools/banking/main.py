@@ -1,5 +1,5 @@
 import warnings
-
+from smart_tools.common.smartsys import print
 from smart_tools.banking.swift.mtparty import parse
 import json
 
