@@ -1,21 +1,18 @@
 import requests
 
-def geturl(url, useproxy = False, proxy = 'proxy:8080', userid = "proxyuser", pwd = "proxypwd"):
-    """
-    Get content of a url.
-    :param url: URL to get content from.
-    :param useproxy: Set to True if request to a URL must be made through a proxy.
-    :param proxy: If `useproxy` is True, then the proxy address. Do not include http:// or https://, just the address.
-    :param userid: If `useproxy` is True, then  userid for secured request.
-    :param pwd: If `useproxy` is True, then  password for secured request.
-    :return: Content of the URL.
-    """
-    if useproxy:
-        p = {'proxy': {'http': f'http://{proxy}', 'https': f'https://{userid}:{pwd}@{proxy}'}}
-        return requests.get(url, proxies=p)
-    return requests.get(url)
+def get_url(url, http_proxy ='http://proxy:8080', https_proxy ='http://username:pwd@proxy:8080'):
+    proxy = {}
 
+    if http_proxy:
+        proxy['http'] = http_proxy
+    if https_proxy:
+        proxy['https'] = https_proxy
 
-r = geturl(r'https://ofac.treasury.gov/faqs/topic/1641')
+    return requests.get(url, proxy)
 
-print(r)
+def download_url(url, filename, encoding ='utf-8', http_proxy ='http://proxy:8080', https_proxy ='http://username:pwd@proxy:8080'):
+    response = get_url(url, http_proxy, https_proxy)
+
+    with open(filename, 'wb') as f:
+        f.write(response.content)
+    return f
