@@ -4,6 +4,13 @@ import pandas as pd
 
 
 def dissect_dataframe(frame, nsample=5):
+
+    """
+    Dissects a pandas dataframe
+    :param frame: Dataframe.
+    :param nsample: Number of top samples to pick.
+    :return: Dissected results as a pandas datafram.e
+    """
     def non_alpanumeric(data):
         vals = pd.Series(data).value_counts().sort_values(ascending=True)
         y = dict(zip(vals.index, vals))
