@@ -51,7 +51,8 @@ def parse(text, option=None, get_option=True, line_sep=' _ ', has_acct=True):
                      'line3': None, 'line4': None, 'bic': None,
                      'iban': None, 'name': None, 'country': None}
 
-    if text is None: return response_dict
+    # if text is None: return response_dict
+    if text is None: return None
 
     if not get_option and option is None:
         raise TypeError("Expected `option` when `get_option` is False.")

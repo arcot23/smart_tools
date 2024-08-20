@@ -2,7 +2,7 @@ import os
 import argparse
 import yaml
 
-from smart_tools.dissector.filedissector import dissect_from_dir
+from smart_tools.dissector.filedissector import dissect_dir_files
 
 
 def main():
@@ -45,8 +45,8 @@ def main():
         print(f'- {config}: `{configs[config]}`')
 
     print('**Process:**')
-    df_all = dissect_from_dir(dir=args['dir'], file_wildcard=args['file'], sep=args['sep'], nsample=args['nsample'],
-                              slicers=args['slicers'], **configs['read_csv'])
+    df_all = dissect_dir_files(dir=args['dir'], file_wildcard=args['file'], sep=args['sep'], nsample=args['nsample'],
+                               slicers=args['slicers'], **configs['read_csv'])
 
     print('**Result:**')
     output_path = os.path.join(args['dir'], f'{args["outfile"]}.{args["to"]}')

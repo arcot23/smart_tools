@@ -6,10 +6,10 @@ import warnings
 
 import pandas as pd
 
-from smart_tools.dissector.dfdissector import dissect_from_frame
+from smart_tools.dissector.dfdissector import dissect_dataframe
 
 
-def dissect_from_file(file, filetype='csv', sep=';', slicers=[''], nsample=5, **kwargs):
+def dissect_file(file, filetype='csv', sep=';', slicers=[''], nsample=5, **kwargs):
     if filetype.lower().strip() == 'csv':
         df = pd.read_csv(file, sep=sep, **kwargs)
     filename = os.path.basename(file)
@@ -29,7 +29,7 @@ def dissect_from_file(file, filetype='csv', sep=';', slicers=[''], nsample=5, **
 
         if df_sliced.shape[0] == 0: continue
 
-        result = dissect_from_frame(df_sliced, nsample)
+        result = dissect_dataframe(df_sliced, nsample)
         result[['filename', 'filetype', 'slice']] = filename, filetype, slice
 
         file_properties = get_file_property(file)
@@ -58,12 +58,12 @@ def get_file_property(path, date_time_format='%Y%m%d'):
     return {'filename': filename, 'timestamp': timestamp, 'hash': hash, 'size': size}
 
 
-def dissect_from_dir(dir, file_wildcard, sep, nsample=10, slicers=[''], **kwargs):
+def dissect_dir_files(dir, file_wildcard, sep, nsample=10, slicers=[''], **kwargs):
     files = glob.glob(os.path.join(dir, file_wildcard))
     df_all = []
     print(f'files: {len(files)}')
     for file in files:
-        for d in dissect_from_file(file, sep=sep, nsample=nsample, slicers=slicers, **kwargs):
+        for d in dissect_file(file, sep=sep, nsample=nsample, slicers=slicers, **kwargs):
             df_all.append(d)
     df_all = concat_dfs(df_all)
     return df_all

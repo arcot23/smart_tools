@@ -3,7 +3,7 @@ import re
 import pandas as pd
 
 
-def dissect_from_frame(frame, nsample=5):
+def dissect_dataframe(frame, nsample=5):
     def non_alpanumeric(data):
         vals = pd.Series(data).value_counts().sort_values(ascending=True)
         y = dict(zip(vals.index, vals))
