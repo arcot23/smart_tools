@@ -10,8 +10,8 @@ def dissect_dataframe(frame, nsample=5):
         return y
 
     def val_length(data):
-        minl = min(data[data.str.len() > 0].str.len(), default=0)
-        maxl = max(data[data.str.len() > 0].str.len(), default=0)
+        minl = int(min(data[data.str.len() > 0].str.len(), default=0))
+        maxl = int(max(data[data.str.len() > 0].str.len(), default=0))
         return {'min': minl, 'max': maxl}
 
     def not_a_val(data):
