@@ -56,4 +56,4 @@ def write_iban_lengths_to_file(
 
 
 # print(get_iban_lengths())
-write_iban_lengths_to_file()
+# write_iban_lengths_to_file()
