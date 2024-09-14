@@ -27,7 +27,7 @@ python -m pip install smart-tools
 # Dependencies
 
 - [pandas](https://pandas.pydata.org/)
-- [yaml](https://pyyaml.org/)
+- [pyyaml](https://pyyaml.org/)
 
 # How to use command-line tools
 
