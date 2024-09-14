@@ -1,6 +1,6 @@
 import warnings
 from smart_tools.common.smartsys import print
-from smart_tools.banking.swift.mtparty import parse
+from smart_tools.banking.mtparty import parse
 import json
 
 def main():

@@ -1,6 +1,6 @@
 # smart_tools: tools to make data analysis easy
 
-**smart_tools** contains a collection of command-line tools and a package with a set of command-line tools together with its python library. This comprises:
+**smart_tools** contains a collection of command-line tools developed in Python. It aims in performing common data analyst activities easier.
 
 # Table of Contents
 
@@ -31,7 +31,7 @@ python -m pip install smart-tools
 
 # How to use command-line tools
 
-To get help, simply run respective executable with `-h` argument from your terminal. For example dissector can be run with `dissector.exe -h`.  Run the command with positional arguments which are mandatory, but review the optional arguments `dissector.exe .\dir file.txt`.
+To get help, simply run respective executable with `-h` argument from your terminal. For example dissector can be run with `dissector.exe -h`.  Run the command with positional arguments which are mandatory, but review the optional arguments `dissector.exe dir file*.txt`.
 
 To easily access these command-line tools, add the executable's directory to PATH (in Windows) environment variable `$Env:PATH`. Most tools also depends on a `config.yaml` file for certain additional settings. 
 
@@ -54,7 +54,8 @@ All command-line tools takes an input and generates an output. Input is typicall
 
 ```text
 dir
-├── file.txt
+├── file1.txt
+├── file2.txt
 ├── ...
 ├── .d/
 │   └── dissector_result.xlsx

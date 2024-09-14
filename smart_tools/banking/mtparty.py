@@ -1,6 +1,6 @@
 import re
 import warnings
-from smart_tools.banking.swift import regex_patterns as rp
+from smart_tools.banking import regex_patterns as rp
 from smart_tools.banking import bic
 from smart_tools.banking import iban
 
@@ -25,7 +25,7 @@ def find_option(text, line_sep=" _ ", has_acct=True):
     return
 
 
-def parse(text, option=None, get_option=True, line_sep=' _ ', has_acct=True):
+def parse(text, option=None, get_option=True, line_sep=' _ ', has_acct=True, swift_regex_patterns_file = "./config/swift_regex_patterns.yaml"):
     def fetch_country(dict):
         country_dict = {'bic_country_code': None, 'optionf1_country_code': None, 'optionf2_country_code': None, 'iban_country_code': None}
 
@@ -37,13 +37,15 @@ def parse(text, option=None, get_option=True, line_sep=' _ ', has_acct=True):
                 if not dict[item] is None:
                     if re.search('line[123456]', item) and re.search('3\/(\w+)', dict[item]): country_dict[
                         'optionf1_country_code'] = re.search('3\/(\w+)', dict[item]).group(1)
-            if dict['has_acct'] and re.search(f'{rp.OPTION_F2_ACCT}', dict['acct']): country_dict[
-                'optionf2_country_code'] = re.search(f'{rp.OPTION_F2_ACCT}', dict['acct']).group(2)
+            if dict['has_acct'] and re.search(configs['OPTION_F2_ACCT'], dict['acct']): country_dict[
+                'optionf2_country_code'] = re.search(configs['OPTION_F2_ACCT'], dict['acct']).group(2)
 
         if dict['has_iban']:
             country_dict['iban_country_code'] = dict['iban']['country_code']
 
         return country_dict
+
+    configs = rp.get_config(swift_regex_patterns_file)
 
     response_dict = {'text': text, 'option': option, 'has_text': False, 'total_lines': None,
                      'has_acct': False, 'has_bic': False,
@@ -70,10 +72,10 @@ def parse(text, option=None, get_option=True, line_sep=' _ ', has_acct=True):
     response_dict['total_lines'] = len(values)
 
     if values[0].startswith('/'):
-        response_dict['acct'] = re.search(f'{rp.ACCT}', values[0]).group(1)
+        response_dict['acct'] = re.search(configs['ACCT'], values[0]).group(1)
         response_dict['has_acct'] = True
         line_start_index = 1
-    elif re.search(f'{rp.OPTION_F2_ACCT}', values[0]):
+    elif re.search(configs['OPTION_F2_ACCT'], values[0]):
         response_dict['acct'] = values[0]
         response_dict['has_acct'] = True
         line_start_index = 1
