@@ -2,3 +2,5 @@ pandas
 pyyaml
 xlsxwriter
 build
+sqlalchemy
+oracledb
