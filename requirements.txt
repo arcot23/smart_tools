@@ -4,3 +4,5 @@ xlsxwriter
 build
 sqlalchemy
 oracledb
+scikit-learn
+matplotlib
