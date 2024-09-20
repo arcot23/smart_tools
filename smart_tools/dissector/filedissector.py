@@ -12,6 +12,8 @@ from smart_tools.dissector.dfdissector import dissect_dataframe
 def dissect_file(file, filetype='csv', sep=';', slicers=[''], nsample=5, **kwargs):
     if filetype.lower().strip() == 'csv':
         df = pd.read_csv(file, sep=sep, **kwargs)
+    elif filetype.lower().strip() == 'xlsx' or filetype.lower().strip() == 'xlsx':
+        df = pd.read_excel(file, dtype = str)
     filename = os.path.basename(file)
 
     for slice in slicers:
@@ -63,7 +65,11 @@ def dissect_dir_files(dir, file_wildcard, sep, nsample=10, slicers=[''], **kwarg
     df_all = []
     print(f'files: {len(files)}')
     for file in files:
-        for d in dissect_file(file, sep=sep, nsample=nsample, slicers=slicers, **kwargs):
+        if file.endswith(".xlsx"):
+            filetype = "xlsx"
+        else:
+            filetype = "csv"
+        for d in dissect_file(file, filetype=filetype, sep=sep, nsample=nsample, slicers=slicers, **kwargs):
             df_all.append(d)
     df_all = concat_dfs(df_all)
     return df_all
