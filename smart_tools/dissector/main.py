@@ -6,7 +6,7 @@ from smart_tools.dissector.filedissector import dissect_dir_files
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Analyze one or files for data profiling")
+    parser = argparse.ArgumentParser(description="Analyze one or more files for data profiling")
 
     parser.add_argument('dir', type=str, help='Input directory')
     parser.add_argument('file', type=str, help='Input file or files (for multiple files use wildcard)')
