@@ -29,11 +29,29 @@ Data preprocessing is the process of preparing raw data for machine learning (ML
 
 **Handling missing values:** Some algorithms can't handle missing values, or they perform worse with them.
 
+```python
+# replace with NaN
+
+# remove rows with NaNs
+
+```
+
 **Removing outliers:** This can help improve data quality.
+
+```python
+
+```
 
 **Scaling features:** This ensures all data fits a uniform scale. Scaling refers to the process of transforming the features of a dataset to a specific range or distribution. Common Scaling Techniques in Scikit-Learn are: StandardScaler, MinMaxScaler, RobustScaler, MaxAbsScaler.
 
-Scaling, or feature scaling, is a vital pre-processing step in machine learning that involves transforming the values of features in a dataset to a common scale. The goal of scaling is to ensure that all features have a comparable impact on the model, and to reduce potential biases and inconsistencies. 
+Scaling, or feature scaling, is a vital pre-processing step in machine learning that involves transforming the values of features in a dataset to a common scale. The goal of scaling is to ensure that all features have a comparable impact on the model, and to reduce potential biases and inconsistencies.
+
+```python
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+
+df['mileage'] = scaler.fit_transform(df['mileage'])
+```
 
 Scaling can help improve the performance and accuracy of a machine learning model by: 
 - Increasing algorithm effectiveness: Scaling brings data points that are far apart closer together, which can help the model learn and understand the problem. 
@@ -49,6 +67,13 @@ Some common techniques for scaling data include:
 Tree-based algorithms, such as decision trees, random forest, and gradient boosting, are generally not affected by scaling and do not require it.
 
 **Encoding categorical variables:** This converts categorical data into a numerical format so the model can understand it. Encoders are transformers that convert categorical variables into numeric values. Some types of encoders in scikit-learn include One-hot encoder, Label binarizer, Label encoder.
+
+```python
+from sklearn.preprocessing import LabelEncoder
+le = LabelEncoder()
+
+df['result'] = scaler.fit_transform(df['result'])
+```
 
 Encoders are transformers that convert categorical variables into numeric values. Some types of encoders in scikit-learn include: 
 
