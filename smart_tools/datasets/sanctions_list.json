@@ -1,0 +1,249 @@
+{
+  "lists" : [
+    {
+      "region": "australia",
+      "name": "Australia Consolidated List (Department of Foreign Affairs and Trade)",
+      "ref": "https://www.dfat.gov.au/international-relations/security/sanctions/consolidated-list",
+      "url": "https://www.dfat.gov.au/sites/default/files/regulation8_consolidated.xlsx",
+      "format": "xlsx"
+    },
+    {
+      "region": "austria",
+      "name": "Austrian Sanctions List (Österreichische Sanktionsliste der OeNB)",
+      "ref": "https://www.fma.gv.at/en/cross-sectoral-topics/prevention-of-money-laundering-terrorist-financing/country-and-sanctions-lists/",
+      "url": "",
+      "format": ""
+    },
+    {
+      "region": "belgium",
+      "name": "Belgian National Sanctions List (Föderaler Öffentlicher Dienst Finanzen)",
+      "ref": "https://finance.belgium.be/en/about_fps/structure_and_services/general_administrations/treasury/financial-sanctions/national",
+      "url": "https://finance.belgium.be/sites/default/files/thesaurie/20240409%20-%20Liste%20nationale.xlsx",
+      "format": "xlsx"
+    },
+    {
+      "region": "canada",
+      "name": "Consolidated Canadian Autonomous Sanctions List",
+      "ref": "https://www.international.gc.ca/world-monde/international_relations-relations_internationales/sanctions/consolidated-consolide.aspx?lang=eng",
+      "url": "https://www.international.gc.ca/world-monde/assets/office_docs/international_relations-relations_internationales/sanctions/sema-lmes.xml",
+      "format": "xml"
+    },
+    {
+      "region": "china",
+      "name": "Unreliable Entities List (China Ministry of Commerce, MOFCOM)",
+      "ref": "http://english.mofcom.gov.cn/article/policyrelease/questions/202009/20200903002580.shtml",
+      "url": "",
+      "format": ""
+    },
+    {
+      "region": "czech republic",
+      "name": "Czech Counter-Terrorism Sanctions List (Nařízení vlády č. 210/2008 Sb.)",
+      "ref": "",
+      "url": "",
+      "format": ""
+    },
+    {
+      "region": "eu",
+      "name": "Consolidated Financial Sanctions (CFSP) list (European External Action Service)",
+      "ref": "https://www.eeas.europa.eu/eeas/european-union-sanctions_en",
+      "url": "",
+      "format": ""
+    },
+    {
+      "region": "eu",
+      "name": "Restrictions for dual-use goods intended for listed organizations (Council of the European Union)",
+      "ref": "https://policy.trade.ec.europa.eu/help-exporters-and-importers/exporting-dual-use-items_en",
+      "url": "",
+      "format": ""
+    },
+    {
+      "region": "eu",
+      "name": "EU – Restrictions on access to the capital market (Council of the European Union)",
+      "ref": "",
+      "url": "",
+      "format": ""
+    },
+    {
+      "region": "france",
+      "name": "French Sanctions List (Ministère de l'Économie et des Finances)",
+      "ref": "https://www.tresor.economie.gouv.fr/services-aux-entreprises/sanctions-economiques",
+      "url": "",
+      "format": ""
+    },
+    {
+      "region": "japan",
+      "name": "End User List (Ministry of Economy, Trade and Industry)",
+      "ref": "https://www.meti.go.jp/english/press/2022/0310_002.html",
+      "url": "https://www.meti.go.jp/press/2021/03/20220310004/20220310004-1.pdf",
+      "format": "pdf"
+    },
+    {
+      "region": "netherlands",
+      "name": "Nationale sanctielijst terrorisme (Ministerie van Buitenlandse Zaken)",
+      "ref": "https://www.rijksoverheid.nl/documenten/rapporten/2015/08/27/nationale-terrorismelijst",
+      "url": "https://www.rijksoverheid.nl/binaries/rijksoverheid/documenten/rapporten/2015/08/27/nationale-terrorismelijst/ned-terrorismelijst.ods",
+      "format": "ods"
+    },
+    {
+      "region": "poland",
+      "name": "Lista osób i podmiotów objętych sankcjami (Ministerstwo Spraw Wewnętrznych i Administracji)",
+      "ref": "https://www.gov.pl/web/uzp/lista-osob-i-podmiotow-objetych-sankcjami-w-zwiazku-z-wojna-w-ukrainie",
+      "url": "https://www.gov.pl/web/mswia/lista-osob-i-podmiotow-objetych-sankcjami",
+      "format": "html"
+    },
+    {
+      "region": "singapore",
+      "name": "List of the Monetary Authority of Singapore (Monetary Authority of Singapore)",
+      "ref": "https://www.mas.gov.sg/",
+      "url": "",
+      "format": ""
+    },
+    {
+      "region": "switzerland",
+      "name": "Liste des Staatssekretariats für Wirtschaft der Schweiz (SECO)",
+      "ref": "https://www.seco.admin.ch/seco/en/home.html",
+      "url": "",
+      "format": ""
+    },
+    {
+      "region": "uk",
+      "name": "Consolidated List of Financial Sanctions Targets in the UK (Office of Financial Sanctions Implementation HM Treasury)",
+      "ref": "https://www.gov.uk/government/publications/financial-sanctions-consolidated-list-of-targets/consolidated-list-of-targets",
+      "url": "https://ofsistorage.blob.core.windows.net/publishlive/2022format/ConList.xlsx",
+      "format": "xlsx"
+    },
+    {
+      "region": "uk",
+      "name": "Ukraine Sovereignty List (Office of Financial Sanctions Implementation HM Treasury)",
+      "ref": "https://www.gov.uk/government/publications/financial-sanctions-ukraine-sovereignty-and-territorial-integrity",
+      "url": "",
+      "format": ""
+    },
+    {
+      "region": "uk",
+      "name": "UK Sanctions List (Foreign, Commonwealth & Development Office)",
+      "ref": "https://www.gov.uk/government/publications/the-uk-sanctions-list",
+      "url": "",
+      "format": ""
+    },
+    {
+      "region": "usa",
+      "name": "Denied Persons List (Department of Commerce – Bureau of Industry and Security (BIS))",
+      "ref": "https://www.bis.doc.gov/index.php/policy-guidance/lists-of-parties-of-concern/denied-persons-list",
+      "url": "https://www.bis.doc.gov/dpl/dpl.txt",
+      "format": "txt"
+    },
+    {
+      "region": "usa",
+      "name": "Entity List (Department of Commerce – Bureau of Industry and Security (BIS))",
+      "ref": "https://www.bis.doc.gov/index.php/policy-guidance/lists-of-parties-of-concern/entity-list",
+      "url": "https://www.ecfr.gov/current/title-15/subtitle-B/chapter-VII/subchapter-C/part-744/appendix-Supplement%20No.%204%20to%20Part%20744",
+      "format": "html"
+    },
+    {
+      "region": "usa",
+      "name": "Military End User List (Department of Commerce – Bureau of Industry and Security (BIS))",
+      "ref": "https://www.bis.doc.gov/index.php/policy-guidance/lists-of-parties-of-concern/1770",
+      "url": "https://www.ecfr.gov/current/title-15/subtitle-B/chapter-VII/subchapter-C/part-744/appendix-Supplement%20No.%207%20to%20Part%20744",
+      "format": "html"
+    },
+    {
+      "region": "usa",
+      "name": "Military-Intelligence End-User List (Department of Commerce – Bureau of Industry and Security (BIS))",
+      "ref": "",
+      "url": "",
+      "format": ""
+    },
+    {
+      "region": "usa",
+      "name": "Unverified List (Department of Commerce – Bureau of Industry and Security (BIS))",
+      "ref": "https://www.bis.doc.gov/index.php/policy-guidance/lists-of-parties-of-concern/unverified-list",
+      "url": "https://www.bis.gov/ear/title-15/subtitle-b/chapter-vii/subchapter-c/part-744/supplement-no-6-part-744-unverified-list",
+      "format": "html"
+    },
+    {
+      "region": "usa",
+      "name": "List of Administratively Debarred Parties (Department of State – Directorate of Defence Trade Controls (DDTC))",
+      "ref": "https://www.cbp.gov/trade/trade-community/programs-outreach/blocked-denied-debarred",
+      "url": "",
+      "format": ""
+    },
+    {
+      "region": "usa",
+      "name": "List of Statutorily Debarred Parties (Department of State – Directorate of Defence Trade Controls (DDTC))",
+      "ref": "",
+      "url": "",
+      "format": ""
+    },
+    {
+      "region": "usa",
+      "name": "Money Laundering Concerns List (Department of the Treasury – Financial Crimes Enforcement Network)",
+      "ref": "",
+      "url": "",
+      "format": ""
+    },
+    {
+      "region": "usa",
+      "name": "List of Nonproliferation Sanctions (Department of State – Bureau of International Security and Nonproliferation)",
+      "ref": "",
+      "url": "",
+      "format": ""
+    },
+    {
+      "region": "usa",
+      "name": "Terrorist Exclusion List (Department of State - Bureau of Counterterrorism)",
+      "ref": "https://www.state.gov/terrorist-exclusion-list/",
+      "url": "",
+      "format": ""
+    },
+    {
+      "region": "usa",
+      "name": "System for Award Management Exclusions (General Services Administration (GSA))",
+      "ref": "https://sam.gov/SAM/pages/public/exclusionSearch/exclusionsView.jsf",
+      "url": "",
+      "format": ""
+    },
+    {
+      "region": "usa",
+      "name": "Uyghur Forced Labor Prevention Act (UFLPA) Entity List (Department of Homeland Security)",
+      "ref": "https://www.dhs.gov/uflpa-entity-list",
+      "url": "https://www.dhs.gov/uflpa-entity-list",
+      "format": "html"
+    },
+    {
+      "region": "usa",
+      "name": "BIS Charging Letters (Office of Export Enforcement)",
+      "ref": "https://www.bis.doc.gov/index.php/enforcement",
+      "url": "",
+      "format": ""
+    },
+    {
+      "region": "usa",
+      "name": "Specially Designated Nationals (SDN) List (Department of the Treasury – Office of Foreign Assets Controls (OFAC))",
+      "ref": "https://ofac.treasury.gov/faqs/topic/1631",
+      "url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN_ADVANCED.XML",
+      "format": "xml"
+    },
+    {
+      "region": "usa",
+      "name": "Non-SDN Consolidated Sanctions List (Department of the Treasury – Office of Foreign Assets Controls (OFAC))",
+      "ref": "https://ofac.treasury.gov/sanctions-list-service",
+      "url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/CONS_ADVANCED.XML",
+      "format": "xml"
+    },
+    {
+      "region": "usa",
+      "name": "Dow Jones",
+      "ref": "",
+      "url": "",
+      "format": ""
+    },
+    {
+      "region": "usa",
+      "name": "Reguvis",
+      "ref": "",
+      "url": "",
+      "format": ""
+    }
+  ]
+}
