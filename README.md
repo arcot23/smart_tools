@@ -7,7 +7,7 @@
 - [Where to get it](#where-to-get-it)
 - [Dependencies](#dependencies)
 - [How to use command-line tools](#how-to-use-command-line-tools)
-- [dissector](#dissector), analyze one or files for data profiling
+- [dissector](#dissector), analyze one or more files for data profiling
 - [morpher](#morpher), convert files from one format to another
 - [comparator](#comparator), compare two files for differences
 - [aggregator](#comparator), append two or more files row-wise
