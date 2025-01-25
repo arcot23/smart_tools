@@ -29,7 +29,8 @@ def dissect_dataframe(frame, nsample=5):
         return {'nan': nan, 'emptystr': emptystr}
 
     def top(data, head):
-        values = data.value_counts().sort_values(ascending=False)[:head]
+        # values = data.value_counts().sort_values(ascending=False)[:head]
+        values = data.value_counts().nlargest(head)
         d = dict(zip(values.index, values))
         return d
 
@@ -43,7 +44,8 @@ def dissect_dataframe(frame, nsample=5):
     nunique = frame.apply(lambda x: len(x[x.apply(str).str.len() > 0].drop_duplicates().dropna()))
     nvalue = frame.apply(lambda x: len(x[x.apply(str).str.len() > 0].dropna()))
     freq = frame.apply(lambda x: top(x[x.apply(str).str.len() > 0], nsample))
-    sample = frame.apply(lambda x: str(x[x != ''].value_counts().sort_values(ascending=False)[:nsample].index.tolist()))
+    # sample = frame.apply(lambda x: str(x[x != ''].value_counts().sort_values(ascending=False)[:nsample].index.tolist()))
+    sample = frame.apply(lambda x: str(x[x != ''].value_counts().nlargest(nsample).index.tolist()))
     symbols = frame.apply(lambda x: non_alpanumeric(list(re.sub('[a-zA-Z0-9]', '', ''.join(x[x.notna()].astype(str))))))
 
     cols = ['isnum', 'strlen', 'nnull', 'nrow', 'nunique', 'nvalue', 'freq', 'sample', 'symbols']

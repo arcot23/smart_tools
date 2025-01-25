@@ -14,6 +14,8 @@ def dissect_file(file, filetype='csv', sep=';', slicers=[''], nsample=5, **kwarg
         df = pd.read_csv(file, sep=sep, **kwargs)
     elif filetype.lower().strip() == 'xlsx' or filetype.lower().strip() == 'xlsx':
         df = pd.read_excel(file, dtype = str)
+    elif filetype.lower().strip() in ['parquet', 'pqt']:
+        df = pd.read_parquet(file)
     filename = os.path.basename(file)
 
     for slice in slicers:
@@ -60,13 +62,15 @@ def get_file_property(path, date_time_format='%Y%m%d'):
     return {'filename': filename, 'timestamp': timestamp, 'hash': hash, 'size': size}
 
 
-def dissect_dir_files(dir, file_wildcard, sep, nsample=10, slicers=[''], **kwargs):
+def dissect_dir_files(dir, file_wildcard, sep=';', nsample=10, slicers=[''], **kwargs):
     files = glob.glob(os.path.join(dir, file_wildcard))
     df_all = []
     print(f'files: {len(files)}')
     for file in files:
         if file.endswith(".xlsx"):
             filetype = "xlsx"
+        elif file.endswith(".parquet"):
+            filetype = "parquet"
         else:
             filetype = "csv"
         for d in dissect_file(file, filetype=filetype, sep=sep, nsample=nsample, slicers=slicers, **kwargs):
