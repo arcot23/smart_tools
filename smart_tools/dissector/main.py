@@ -14,7 +14,7 @@ def main():
     #                     help='How to process files: as_csv|as_xls')
     parser.add_argument('--sep', default=',', help='Column separator (default: ,)')
     parser.add_argument('--to', choices=['xlsx', 'json', 'csv'], default='xlsx',
-                        help='Save output to xlsx or json or csv (default: xlsx)')
+                        help='Save output to xlsx or  json or csv (default: xlsx)')
     parser.add_argument('--slicers', nargs='*', default=[''],
                         help='List of conditions to slice data (default: '' for no slicing)')
     parser.add_argument('--nsample', type= int, default='10',
