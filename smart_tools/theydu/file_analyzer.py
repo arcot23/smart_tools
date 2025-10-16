@@ -5,11 +5,22 @@ import json
 from pathlib import Path
 from datetime import datetime
 import mimetypes
+import chardet
+import file_tools as ft
 
 # --- Constants ---
 # A reasonable block size for reading large files to calculate hash
 BLOCK_SIZE = 65536
 
+
+
+def get_file_encoding(file_path):
+    with open(file_path, 'rb') as f:
+        # Read a reasonable chunk of the file to get enough data for detection
+        raw_data = f.read(100000)  # Read up to 100KB
+
+    result = chardet.detect(raw_data)
+    return result['encoding']
 
 # --- Core Functionality ---
 
@@ -61,6 +72,8 @@ def analyze_file(file: str, output_dir: str) -> Path:
     Path(output_dir).mkdir(parents=True, exist_ok=True)
     output_file_path = Path(output_dir) / output_file_name
     mime_type, encoding = mimetypes.guess_type(file)
+    file_encoding = get_file_encoding(file)
+    full_file_path = str(input_file_path.resolve())
 
     # 2. Gather Data
     checksum, size_bytes = calculate_file_checksum_and_size(input_file_path)
@@ -72,20 +85,29 @@ def analyze_file(file: str, output_dir: str) -> Path:
     metadata = {
         "file_name": input_file_path.name,
         "mime_type": mime_type,
-        "encoding": encoding,
-        "full_file_path": str(input_file_path.resolve()),  # Resolve to get the absolute path
+        "encoding": file_encoding,
+        "full_file_path": full_file_path,  # Resolve to get the absolute path
         "SHA256": checksum,
         "file_size_in_bytes": size_bytes,
-        "file_download_datetime": download_datetime
+        "file_download_datetime": download_datetime,
+        "summary": {}
     }
 
     # 4. Write to JSON file
     try:
+        if mime_type in ["text/csv","application/vnd.ms-excel"]:
+            metadata["summary"] = ft.summarize_csv_file(full_file_path, file_encoding)
+        elif mime_type in ["text/xml"]:
+            metadata["summary"] = ft.summarize_xml_file(full_file_path)
+        elif mime_type in ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]:
+            metadata["summary"] = ft.summarize_excel_file(full_file_path)
+
         with open(output_file_path, 'w') as outfile:
             # Use json.dumps for a nicely formatted, readable output file
             json.dump(metadata, outfile, indent=4)
 
         print(f"\n✅ Successfully created metadata file at: {output_file_path.resolve()}")
+
         return output_file_path
 
     except Exception as e:
@@ -105,7 +127,7 @@ def main():
         '-f', '--file',
         type=str,
         required=True,
-        help="The local file path for the sanctions list data (e.g., ./sdn.csv).",
+        help="The local file path for the sanctions list data (e.g., ./file.csv).",
         metavar='LOCAL_FILE_PATH'
     )
 

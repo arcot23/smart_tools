@@ -1,8 +1,7 @@
 # Define the path to your CSV file containing URLs
 $csvFilePath = "..\config\download_list.csv"
 
-# Define the path to the program you want to execute
-$programPath = "..\dist\downloader.exe"
+$pythonExe = "C:\Users\prabhuramv\smart_tools\Scripts\python.exe"
 
 Write-Host "Download processing started."
 
@@ -22,7 +21,9 @@ foreach ($row in $csvData) {
 
     # Execute the program with the constructed arguments
     # Use Start-Process for launching external executables
-    Start-Process -FilePath $programPath -ArgumentList $programArguments -NoNewWindow -Wait
+    & $pythonExe ..\smart_tools\theydu\downloader.py $programArguments
+
+
 
     # -NoNewWindow prevents a new console window from appearing for the program
     # -Wait makes the script pause until the external program finishes execution

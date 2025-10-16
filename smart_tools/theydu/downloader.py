@@ -47,6 +47,7 @@ def download_file(url: str, output_dir: str = ".", chunk_size: int = 8192, **kwa
             # Try to extract filename
             filename = _get_filename_from_response(response, url)
             file_path = os.path.join(output_dir, filename)
+            content_type = response.headers.get("Content-Type")
 
             # Stream download to avoid loading whole file in memory
             with open(file_path, "wb") as file:
@@ -54,7 +55,7 @@ def download_file(url: str, output_dir: str = ".", chunk_size: int = 8192, **kwa
                     if chunk:
                         file.write(chunk)
 
-        return os.path.abspath(file_path)
+        return content_type, os.path.abspath(file_path)
 
     except requests.RequestException as e:
         raise ValueError(f"Failed to download file: {e}")
@@ -65,6 +66,7 @@ def _get_filename_from_response(response, url: str) -> str:
     Derives a sensible filename from Content-Disposition header or URL.
     """
     cd = response.headers.get("content-disposition")
+
     if cd and "filename=" in cd:
         filename = cd.split("filename=")[1].strip('"; ')
     else:
@@ -112,6 +114,6 @@ if __name__ == "__main__":
             output_dir=args.output_dir,
             chunk_size=args.chunk_size
         )
-        print(f"✅ File successfully downloaded to: {saved_path}")
+        print(f"✅ `{args.url}` successfully downloaded: {saved_path}")
     except Exception as e:
         print(f"❌ Download failed: {e}")

@@ -19,3 +19,4 @@ markdown
 selenium
 yt_dlp
 pyinstaller
+chardet
