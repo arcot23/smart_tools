@@ -25,7 +25,22 @@ The main difference between supervised and unsupervised machine learning is the 
 
 ## Data Preprocessing
 
-Data preprocessing is the process of preparing raw data for machine learning (ML) models by cleaning, transforming, and structuring it. It's a crucial step in the ML pipeline because it directly impacts the accuracy and performance of the models. Some common preprocessing techniques include:
+Data preprocessing is the process of preparing raw data for machine learning (ML) models by cleaning, transforming, and structuring it. It's a crucial step in the ML pipeline because it directly impacts the accuracy and performance of the models. 
+
+The key step before data processing is acquiring and analyzing the data such that data can be preprocessed.
+
+```python
+import pandas as pd
+
+df = pd.read_csv(...)
+
+df.shape
+df.dtypes
+df.describe()
+df.head()
+```
+
+Some common preprocessing techniques include:
 
 **Handling missing values:** Some algorithms can't handle missing values, or they perform worse with them.
 
