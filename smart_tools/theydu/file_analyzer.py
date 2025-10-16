@@ -4,6 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 from datetime import datetime
+import mimetypes
 
 # --- Constants ---
 # A reasonable block size for reading large files to calculate hash
@@ -37,13 +38,12 @@ def calculate_file_checksum_and_size(file_path: Path) -> tuple[str, int]:
         raise
 
 
-def analyze_file(file: str, mime_type: str) -> Path:
+def analyze_file(file: str, output_dir: str) -> Path:
     """
     Analyzes a local file, generates metadata, and writes it to a JSON file.
 
     Args:
         file: The local file path (must be local for checksum/size calculation).
-        mime_type: The MIME type of the file.
 
     Returns:
         The path to the generated metadata file.
@@ -58,7 +58,9 @@ def analyze_file(file: str, mime_type: str) -> Path:
 
     # Use pathlib to get the file stem for the output file name
     output_file_name = f"{input_file_path.stem}_details.txt"
-    output_file_path = input_file_path.parent / output_file_name
+    Path(output_dir).mkdir(parents=True, exist_ok=True)
+    output_file_path = Path(output_dir) / output_file_name
+    mime_type, encoding = mimetypes.guess_type(file)
 
     # 2. Gather Data
     checksum, size_bytes = calculate_file_checksum_and_size(input_file_path)
@@ -70,6 +72,7 @@ def analyze_file(file: str, mime_type: str) -> Path:
     metadata = {
         "file_name": input_file_path.name,
         "mime_type": mime_type,
+        "encoding": encoding,
         "full_file_path": str(input_file_path.resolve()),  # Resolve to get the absolute path
         "SHA256": checksum,
         "file_size_in_bytes": size_bytes,
@@ -107,18 +110,16 @@ def main():
     )
 
     parser.add_argument(
-        '-m', '--mime-type',
+        "-o", "--output-dir",
         type=str,
-        required=True,
-        choices=['text/csv', 'text/xml', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
-        help="The MIME type of the file to be analyzed.",
-        metavar='MIME_TYPE'
+        default=".",
+        help="Target directory to save the analysis file (default: .)."
     )
 
     args = parser.parse_args()
 
     # The original function call
-    return analyze_file(file=args.file, mime_type=args.mime_type)
+    return analyze_file(file=args.file, output_dir=args.output_dir)
 
 
 if __name__ == "__main__":
