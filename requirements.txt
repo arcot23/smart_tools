@@ -12,3 +12,10 @@ html5lib
 beautifulsoup4
 openpyxl
 pyarrow
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
+markdown
+selenium
+yt_dlp
+pyinstaller
