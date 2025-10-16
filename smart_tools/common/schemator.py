@@ -33,3 +33,5 @@ def collect_keys_from_json_files(files):
 
         # all_elements.append({"id": file, "dat": elements})
         all_elements.extend(elements)
+
+    return all_elements
