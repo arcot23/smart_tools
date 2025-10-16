@@ -19,7 +19,7 @@ import requests
 from urllib.parse import urlparse
 
 
-def download_file(url: str, output_dir: str = ".", chunk_size: int = 8192) -> str:
+def download_file(url: str, output_dir: str = ".", chunk_size: int = 8192, **kwargs) -> str:
     """
     Downloads any file (any MIME type) from the given URL to the specified folder.
 
@@ -41,7 +41,7 @@ def download_file(url: str, output_dir: str = ".", chunk_size: int = 8192) -> st
     os.makedirs(output_dir, exist_ok=True)
 
     try:
-        with requests.get(url, stream=True, timeout=30) as response:
+        with requests.get(url, stream=True, timeout=30, proxies = kwargs.get('proxies', {})) as response:
             response.raise_for_status()
 
             # Try to extract filename
