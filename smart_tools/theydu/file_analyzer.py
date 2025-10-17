@@ -7,6 +7,7 @@ from datetime import datetime
 import mimetypes
 import chardet
 import file_tools as ft
+from smart_tools.dissector import filedissector
 
 # --- Constants ---
 # A reasonable block size for reading large files to calculate hash
@@ -90,13 +91,15 @@ def analyze_file(file: str, output_dir: str) -> Path:
         "SHA256": checksum,
         "file_size_in_bytes": size_bytes,
         "file_download_datetime": download_datetime,
-        "summary": {}
+        "summary": {},
+        "dissection": {}
     }
 
     # 4. Write to JSON file
     try:
         if mime_type in ["text/csv","application/vnd.ms-excel"]:
             metadata["summary"] = ft.summarize_csv_file(full_file_path, file_encoding)
+            metadata["dissector"] = filedissector.dissect_file(file)
         elif mime_type in ["text/xml"]:
             metadata["summary"] = ft.summarize_xml_file(full_file_path)
         elif mime_type in ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]:
