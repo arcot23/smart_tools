@@ -1,0 +1,12 @@
+{
+  "file": "C:\\wip\\smart_tools\\smart_tools\\theydu\\downloads\\20251007-FULL-1_0.csv",
+  "type": "csv",
+  "delimiter": ";",
+  "transformation": {
+    "id": "{Naal_logical_id}",
+    "name": "{Naal_wholename}",
+    "type": "{Subject_type}",
+    "program": "{Programme}",
+    "country": "{Addr_country}"
+  }
+}

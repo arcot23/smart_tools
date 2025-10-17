@@ -7,7 +7,7 @@ from datetime import datetime
 import mimetypes
 import chardet
 import file_tools as ft
-from smart_tools.dissector import filedissector
+from smart_tools.dissector import dfdissector
 
 # --- Constants ---
 # A reasonable block size for reading large files to calculate hash
@@ -99,17 +99,20 @@ def analyze_file(file: str, output_dir: str) -> Path:
     try:
         if mime_type in ["text/csv","application/vnd.ms-excel"]:
             metadata["summary"] = ft.summarize_csv_file(full_file_path, file_encoding)
-            metadata["dissector"] = filedissector.dissect_file(file)
+            f = json.loads(dfdissector.dissect_from_file(full_file_path, sep=metadata["summary"]["delimiter"]))
+            metadata["dissection"] = f
         elif mime_type in ["text/xml"]:
             metadata["summary"] = ft.summarize_xml_file(full_file_path)
         elif mime_type in ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]:
             metadata["summary"] = ft.summarize_excel_file(full_file_path)
+            f = json.loads(dfdissector.dissect_from_file(full_file_path, type="xlsx",sheet_name=metadata["summary"]["delimiter"]))
+            metadata["dissection"] = f
 
         with open(output_file_path, 'w') as outfile:
             # Use json.dumps for a nicely formatted, readable output file
             json.dump(metadata, outfile, indent=4)
 
-        print(f"\n✅ Successfully created metadata file at: {output_file_path.resolve()}")
+        print(f"✅ Successfully created metadata file at: {output_file_path.resolve()}")
 
         return output_file_path
 

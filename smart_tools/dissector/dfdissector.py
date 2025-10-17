@@ -2,6 +2,12 @@ import re
 
 import pandas as pd
 
+def dissect_from_file(file, type = "csv", sep=",", nsample=5, **kwargs):
+    if type == "csv":
+        df = pd.read_csv(file, sep=sep)
+    if type == "xlsx":
+        df = pd.read_excel(file, sheet_name=kwargs.get('sheet_name', 'Unknown'))
+    return dissect_dataframe(df).to_json(orient="records")
 
 def dissect_dataframe(frame, nsample=5):
 
