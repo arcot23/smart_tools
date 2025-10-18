@@ -20,3 +20,5 @@ selenium
 yt_dlp
 pyinstaller
 chardet
+jellyfish
+fuzzywuzzy

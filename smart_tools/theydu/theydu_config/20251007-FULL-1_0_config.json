@@ -3,10 +3,7 @@
   "type": "csv",
   "delimiter": ";",
   "transformation": {
-    "id": "{Naal_logical_id}",
     "name": "{Naal_wholename}",
-    "type": "{Subject_type}",
-    "program": "{Programme}",
-    "country": "{Addr_country}"
+    "notes": "{{\"id\": \"{Naal_logical_id}\", \"type\": \"{Subject_type}\", \"prgm\": \"{Programme}\", \"ctry\": \"{Addr_country}\"}}"
   }
 }

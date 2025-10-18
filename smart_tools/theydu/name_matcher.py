@@ -44,6 +44,8 @@ def match_names(s1:str, s2:str):
     - `fuzzywuzzy` library for fuzzy matching algorithms
     - `difflib` library for sequence matching algorithms
     """
+    s1_normalized = re.sub(r'[^a-z0-9]', '', s1.lower())
+    s2_normalized = re.sub(r'[^a-z0-9]', '', s2.lower())
 
     # Initialize the response dictionary to store the results of each scenario
     response = {
@@ -81,7 +83,7 @@ def match_names(s1:str, s2:str):
     response["phonetic_encoding"]["soundex"] = [jellyfish.soundex(s1), jellyfish.soundex(s2)]
     response["phonetic_encoding"]["metaphone"] = [jellyfish.metaphone(s1), jellyfish.metaphone(s2)]
     response["phonetic_encoding"]["nysiis"] = [jellyfish.nysiis(s1), jellyfish.nysiis(s2)]
-    response["phonetic_encoding"]["match_rating_codex"] = [jellyfish.match_rating_codex(re.sub(r'[^a-z0-9]', '', s1.lower())), jellyfish.match_rating_codex(re.sub(r'[^a-z0-9]', '', s2.lower()))]
+    response["phonetic_encoding"]["match_rating_codex"] = [jellyfish.match_rating_codex(s1_normalized), jellyfish.match_rating_codex(s1_normalized)]
 
     response["analysis"]["longest_common_subsequence"] = mt.longest_common_subsequence(s1, s2)
     response["analysis"]["align_names"] = mt.align_names(s1, s2)
@@ -131,8 +133,6 @@ def match_names(s1:str, s2:str):
     The match score after normalization scenario calculates the match score after normalizing the strings (removing non-alphanumeric characters).
     The score is calculated using the `SequenceMatcher.ratio` function.
     """
-    s1_normalized = re.sub(r'[^a-z0-9]', '', s1.lower())
-    s2_normalized = re.sub(r'[^a-z0-9]', '', s2.lower())
     response["scores"]["match_score_after_normalization"] = SequenceMatcher(None, s1_normalized, s2_normalized).ratio()
 
     """
