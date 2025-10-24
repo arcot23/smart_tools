@@ -207,7 +207,7 @@ optional arguments:
 **aggregator.exe** is a command-line tool to aggregate two or more file together into one.
 
 ```text
-usage: aggregator.py [-h] [--sep SEP] [--to {xlsx,json,csv}]
+usage: aggregator.exe [-h] [--sep SEP] [--to {xlsx,json,csv}]
                      [--outfile OUTFILE] [--config CONFIG]
                      dir file
 
@@ -227,10 +227,10 @@ optional arguments:
 
 # Fusioner
 
-**aggregator.exe** is a command-line tool to aggregate two or more file together into one.
+**fushioner.exe** is a command-line tool to aggregate two or more file together into one.
 
 ```text
-usage: fusioner.py [-h] [--sep SEP] [--outfile OUTFILE] [--config CONFIG] file
+usage: fusioner.exe [-h] [--sep SEP] [--outfile OUTFILE] [--config CONFIG] file
 
 positional arguments:
   file               Input file
