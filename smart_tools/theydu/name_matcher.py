@@ -7,7 +7,7 @@ from fuzzywuzzy import fuzz
 import json
 import match_tools as mt
 
-def match_names(s1:str, s2:str):
+def match_names(s1:str, s2:str, exclude_algo:str = []):
     """
     Match two names using different scenarios.
 
@@ -95,7 +95,8 @@ def match_names(s1:str, s2:str):
     The exact match scenario checks if the search string and name string are identical (case-insensitive).
     The score is calculated as 1.0 if the strings are identical, and 0.0 otherwise.
     """
-    response["scores"]["exact_match"] = 1.0 if s1.lower() == s2.lower() else 0.0
+    if "exact_match" not in exclude_algo:
+        response["scores"]["exact_match"] = 1.0 if s1.lower() == s2.lower() else 0.0
 
     """
     Scenario 2: Fuzzy Match (Levenshtein Distance)
@@ -104,9 +105,10 @@ def match_names(s1:str, s2:str):
     The score is calculated as 1 minus the ratio of the Levenshtein distance to the maximum length.
     """
 
-    distance = jellyfish.levenshtein_distance(s1.lower(), s2.lower())
-    max_distance = max(len(s1), len(s2))
-    response["scores"]["levenshtein_distance"] = 1.0 - (distance / max_distance)
+    if "levenshtein_distance" not in exclude_algo:
+        distance = jellyfish.levenshtein_distance(s1.lower(), s2.lower())
+        max_distance = max(len(s1), len(s2))
+        response["scores"]["levenshtein_distance"] = 1.0 - (distance / max_distance)
 
     """
     Scenario 3: Fuzzy Match (Jaro-Winkler Distance)
@@ -114,7 +116,8 @@ def match_names(s1:str, s2:str):
     The Jaro-Winkler distance scenario calculates the similarity between two strings, giving more weight to prefix matches.
     The score is calculated using the `jellyfish.jaro_winkler_similarity` function.
     """
-    response["scores"]["jaro_winkler_distance"] = jellyfish.jaro_winkler_similarity(s1.lower(), s2.lower())
+    if "jaro_winkler_distance" not in exclude_algo:
+        response["scores"]["jaro_winkler_distance"] = jellyfish.jaro_winkler_similarity(s1.lower(), s2.lower())
 
     """
     Scenario 4: Match Score without Any Char Removal
@@ -122,10 +125,11 @@ def match_names(s1:str, s2:str):
     The match score without any char removal scenario calculates the match score without removing any characters.
     The score is calculated as the ratio of matching characters to the maximum length.
     """
-    s1_lower = s1.lower()
-    s2_lower = s2.lower()
-    matches = sum(1 for a, b in zip(s1_lower, s2_lower) if a == b)
-    response["scores"]["match_score_without_removal"] = matches / max(len(s1), len(s2))
+    if "match_score_without_removal" not in exclude_algo:
+        s1_lower = s1.lower()
+        s2_lower = s2.lower()
+        matches = sum(1 for a, b in zip(s1_lower, s2_lower) if a == b)
+        response["scores"]["match_score_without_removal"] = matches / max(len(s1), len(s2))
 
     """
     Scenario 5: Match Score after Normalization
@@ -133,7 +137,8 @@ def match_names(s1:str, s2:str):
     The match score after normalization scenario calculates the match score after normalizing the strings (removing non-alphanumeric characters).
     The score is calculated using the `SequenceMatcher.ratio` function.
     """
-    response["scores"]["match_score_after_normalization"] = SequenceMatcher(None, s1_normalized, s2_normalized).ratio()
+    if "match_score_after_normalization" not in exclude_algo:
+        response["scores"][""] = SequenceMatcher(None, s1_normalized, s2_normalized).ratio()
 
     """
     Scenario 6: Match Score after Tokenization
@@ -141,10 +146,11 @@ def match_names(s1:str, s2:str):
     The match score after tokenization scenario calculates the match score after tokenizing the strings (splitting into words).
     The score is calculated as the ratio of matching tokens to the maximum number of tokens.
     """
-    search_tokens = s1.lower().split()
-    name_tokens = s2.lower().split()
-    matches = sum(1 for token in search_tokens if token in name_tokens)
-    response["scores"]["match_score_after_tokenization"] = matches / max(len(search_tokens), len(name_tokens))
+    if "match_score_after_tokenization" not in exclude_algo:
+        search_tokens = s1.lower().split()
+        name_tokens = s2.lower().split()
+        matches = sum(1 for token in search_tokens if token in name_tokens)
+        response["scores"]["match_score_after_tokenization"] = matches / max(len(search_tokens), len(name_tokens))
 
     """
     Scenario 7: Fuzzy Match (FuzzyWuzzy Ratio)
@@ -152,7 +158,8 @@ def match_names(s1:str, s2:str):
     The FuzzyWuzzy ratio scenario calculates the similarity between two strings using the Levenshtein distance.
     The score is calculated using the `fuzz.ratio` function.
     """
-    response["scores"]["fuzzywuzzy_ratio"] = fuzz.ratio(s1.lower(), s2.lower()) / 100
+    if "fuzzywuzzy_ratio" not in exclude_algo:
+        response["scores"]["fuzzywuzzy_ratio"] = fuzz.ratio(s1.lower(), s2.lower()) / 100
 
     """
     Scenario 8: Fuzzy Match (FuzzyWuzzy Partial Ratio)
@@ -160,7 +167,8 @@ def match_names(s1:str, s2:str):
     The FuzzyWuzzy partial ratio scenario calculates the similarity between two strings using the Levenshtein distance, but only considering the shortest string.
     The score is calculated using the `fuzz.partial_ratio` function.
     """
-    response["scores"]["fuzzywuzzy_partial_ratio"] = fuzz.partial_ratio(s1.lower(), s2.lower()) / 100
+    if "fuzzywuzzy_partial_ratio" not in exclude_algo:
+        response["scores"]["fuzzywuzzy_partial_ratio"] = fuzz.partial_ratio(s1.lower(), s2.lower()) / 100
 
     """
     Scenario 9: Fuzzy Match (FuzzyWuzzy Token Sort Ratio)
@@ -168,7 +176,8 @@ def match_names(s1:str, s2:str):
     The FuzzyWuzzy token sort ratio scenario calculates the similarity between two strings using the Levenshtein distance, but sorting the tokens before comparison.
     The score is calculated using the `fuzz.token_sort_ratio` function.
     """
-    response["scores"]["fuzzywuzzy_token_sort_ratio"] = fuzz.token_sort_ratio(s1.lower(), s2.lower()) / 100
+    if "fuzzywuzzy_token_sort_ratio" not in exclude_algo:
+        response["scores"]["fuzzywuzzy_token_sort_ratio"] = fuzz.token_sort_ratio(s1.lower(), s2.lower()) / 100
 
     """
     Scenario 10: Fuzzy Match (FuzzyWuzzy Token Set Ratio)
@@ -176,7 +185,8 @@ def match_names(s1:str, s2:str):
     The FuzzyWuzzy token set ratio scenario calculates the similarity between two strings using the Levenshtein distance, but considering the set of tokens instead of their order.
     The score is calculated using the `fuzz.token_set_ratio` function.
     """
-    response["scores"]["fuzzywuzzy_token_set_ratio"] = fuzz.token_set_ratio(s1.lower(), s2.lower()) / 100
+    if "fuzzywuzzy_token_set_ratio" not in exclude_algo:
+        response["scores"]["fuzzywuzzy_token_set_ratio"] = fuzz.token_set_ratio(s1.lower(), s2.lower()) / 100
 
     """
     Scenario 11: Fuzzy Match (FuzzyWuzzy QRatio)
@@ -184,7 +194,8 @@ def match_names(s1:str, s2:str):
     The FuzzyWuzzy QRatio scenario calculates the similarity between two strings using the Levenshtein distance, but considering the longest contiguous matching substring.
     The score is calculated using the `fuzz.QRatio` function.
     """
-    response["scores"]["fuzzywuzzy_qratio"] = fuzz.QRatio(s1.lower(), s2.lower()) / 100
+    if "fuzzywuzzy_qratio" not in exclude_algo:
+        response["scores"]["fuzzywuzzy_qratio"] = fuzz.QRatio(s1.lower(), s2.lower()) / 100
 
     """
     Scenario 12: Fuzzy Match (FuzzyWuzzy WRatio)
@@ -192,7 +203,8 @@ def match_names(s1:str, s2:str):
     The FuzzyWuzzy WRatio scenario calculates the similarity between two strings using the Levenshtein distance, but considering the weighted ratio of matching characters.
     The score is calculated using the `fuzz.WRatio` function.
     """
-    response["scores"]["fuzzywuzzy_wratio"] = fuzz.WRatio(s1.lower(), s2.lower()) / 100
+    if "fuzzywuzzy_wratio" not in exclude_algo:
+        response["scores"]["fuzzywuzzy_wratio"] = fuzz.WRatio(s1.lower(), s2.lower()) / 100
 
     # Scenario 13: Acronym Match
     def acronym_match(search_string, name_string):
@@ -205,13 +217,16 @@ def match_names(s1:str, s2:str):
             name_acronym = re.sub(r'[^A-Z]', '', name_string)
             return 1.0 if search_acronym == name_acronym else 0.0
 
-    response["scores"]["acronym_match"] = acronym_match(s1, s2)
+    if "acronym_match" not in exclude_algo:
+        response["scores"]["acronym_match"] = acronym_match(s1, s2)
 
     # Scenario 14: Jaccard Similarity
-    response["scores"]["jaccard_similarity"] = mt.jaccard_similarity(s1, s2)
+    if "jaccard_similarity" not in exclude_algo:
+        response["scores"]["jaccard_similarity"] = mt.jaccard_similarity(s1, s2)
 
     # Scenario 15: Cosine Similarity
-    response["scores"]["cosine_similarity"] = mt.cosine_similarity(s1, s2)
+    if "cosine_similarity" not in exclude_algo:
+        response["scores"]["cosine_similarity"] = mt.cosine_similarity(s1, s2)
 
     # Return the response as a JSON string
     return json.dumps(response, indent=4)

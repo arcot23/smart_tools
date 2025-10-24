@@ -7,3 +7,5 @@
 /config/iban_lengths.txt
 /config/iban_registry.txt
 /smart_tools/.log/
+/smart_tools/theydu/downloads/
+/smart_tools/theydu/file_details/
