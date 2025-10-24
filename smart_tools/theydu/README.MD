@@ -141,3 +141,145 @@ Translate words into a phonetic representation (e.g., a Soundex code) and compar
 | **NYSIIS (`jellyfish`)**               | Normalizes phonemes for US names; more linguistically robust.                | `code = jellyfish.nysiis("Robert")`                                           |
 | **Match Rating Codex (`jellyfish`)**   | Designed for name matching; good for record linkage.                         | `code = jellyfish.match_rating_codex("Robert")`                               |
 | **Double Metaphone (`fuzzy` library)** | Returns two encodings (primary/secondary) for ambiguous sounds.              | `from fuzzy import DMetaphone; dmeta = DMetaphone(); codes = dmeta("Robert")` |
+
+
+# A simple implementation
+
+```python
+
+"""
+string_similarity_utils.py
+--------------------------
+Unified interface for common string similarity, distance, and phonetic algorithms.
+
+Supported methods:
+- Levenshtein, Damerau-Levenshtein
+- Jaccard (char/token)
+- Cosine (text/vector)
+- Jaro, Jaro-Winkler
+- Soundex, Metaphone, Double Metaphone, NYSIIS, Match Rating Codex
+"""
+
+import re
+import numpy as np
+
+# Optional dependencies — gracefully degrade if not installed
+try:
+    import Levenshtein
+except ImportError:
+    Levenshtein = None
+
+try:
+    from pyxdameraulevenshtein import damerau_levenshtein_distance
+except ImportError:
+    damerau_levenshtein_distance = None
+
+try:
+    import textdistance
+except ImportError:
+    textdistance = None
+
+try:
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from sklearn.metrics.pairwise import cosine_similarity
+except ImportError:
+    TfidfVectorizer = cosine_similarity = None
+
+try:
+    import jellyfish
+except ImportError:
+    jellyfish = None
+
+try:
+    from fuzzy import DMetaphone
+except ImportError:
+    DMetaphone = None
+
+
+def get_similarity(s1, s2=None, method="levenshtein"):
+    """
+    Compute similarity, distance, or phonetic code between strings.
+    For phonetic algorithms (e.g., soundex), only `s1` is used.
+    """
+    method = method.lower()
+
+    # ---- Distance-based ----
+    if method == "levenshtein":
+        if Levenshtein:
+            return Levenshtein.distance(s1, s2)
+        elif textdistance:
+            return textdistance.levenshtein(s1, s2)
+        raise ImportError("Install `python-Levenshtein` or `textdistance`.")
+
+    elif method in ("damerau", "damerau_levenshtein"):
+        if damerau_levenshtein_distance:
+            return damerau_levenshtein_distance(s1, s2)
+        elif textdistance:
+            return textdistance.damerau_levenshtein(s1, s2)
+        raise ImportError("Install `pyxdameraulevenshtein` or `textdistance`.")
+
+    # ---- Jaccard ----
+    elif method == "jaccard_chars":
+        a, b = set(s1), set(s2)
+        return len(a & b) / len(a | b)
+    elif method == "jaccard_tokens":
+        a, b = set(s1.split()), set(s2.split())
+        return len(a & b) / len(a | b)
+
+    # ---- Cosine ----
+    elif method == "cosine_vector":
+        a, b = np.array(s1), np.array(s2)
+        return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+    elif method == "cosine_text":
+        if not TfidfVectorizer:
+            raise ImportError("Install scikit-learn for cosine_text.")
+        v = TfidfVectorizer().fit_transform([s1, s2])
+        return cosine_similarity(v[0], v[1])[0][0]
+
+    # ---- Jaro / Jaro-Winkler ----
+    elif method == "jaro":
+        if textdistance:
+            return textdistance.jaro(s1, s2)
+        elif jellyfish:
+            return jellyfish.jaro_similarity(s1, s2)
+        raise ImportError("Install `textdistance` or `jellyfish`.")
+
+    elif method == "jaro_winkler":
+        if jellyfish:
+            return jellyfish.jaro_winkler_similarity(s1, s2)
+        elif textdistance:
+            return textdistance.jaro_winkler(s1, s2)
+        raise ImportError("Install `jellyfish` or `textdistance`.")
+
+    # ---- Phonetic Encoders ----
+    elif method == "soundex":
+        return jellyfish.soundex(s1) if jellyfish else None
+    elif method == "metaphone":
+        return jellyfish.metaphone(s1) if jellyfish else None
+    elif method == "nysiis":
+        return jellyfish.nysiis(s1) if jellyfish else None
+    elif method in ("match_rating", "match_rating_codex"):
+        return jellyfish.match_rating_codex(s1) if jellyfish else None
+    elif method == "double_metaphone":
+        if DMetaphone:
+            return DMetaphone()(s1)
+        return None
+
+    else:
+        raise ValueError(f"Unsupported method: {method}")
+
+
+# --- Optional quick test ---
+if __name__ == "__main__":
+    examples = [
+        ("night", "nacht", "levenshtein"),
+        ("martha", "marhta", "jaro_winkler"),
+        ("night", "nacht", "jaccard_chars"),
+        ("dog bites man", "man bites dog", "cosine_text"),
+        ("Robert", None, "soundex"),
+    ]
+    for s1, s2, m in examples:
+        print(f"{m:20s}: {get_similarity(s1, s2, m)}")
+
+
+```
