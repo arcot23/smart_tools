@@ -1,0 +1,17 @@
+{
+    "title": "Events in NJ",
+    "dates": ["date:month"],
+    "places": "events",
+    "townships": [
+        "Old Bridge NJ", "South Old Bridge NJ", "Matawan NJ", "Aberdeen NJ", "Sayreville NJ",
+        "South River NJ", "East Brunswick NJ", "Spotswood NJ", "Milltown NJ", "Helmetta NJ",
+        "Jamesburg NJ", "Monroe Township NJ", "Morganville NJ", "Robertsville NJ", "Englishtown NJ",
+        "Manalapan NJ", "Freehold NJ", "Highland Park NJ", "New Brunswick NJ", "North Brunswick NJ",
+        "Edison NJ", "Metuchen NJ", "Iselin NJ", "Woodbridge NJ", "Fords NJ", "Perth Amboy NJ",
+        "South Amboy NJ", "Laurence Harbor NJ", "Cliffwood Beach NJ", "Keyport NJ", "Union Beach NJ",
+        "Keansburg NJ", "Hazlet NJ", "Holmdel NJ", "Strathmore NJ", "Colonia NJ", "Rossmoor NJ",
+        "Clearbrook Park NJ", "Concordia NJ", "Whittingham NJ", "Dayton NJ", "Monmouth Junction NJ",
+        "Kendall Park NJ", "Somerset NJ", "Middlebush NJ", "Cranbury NJ", "Plainsboro NJ",
+        "Middletown Township NJ", "Coltsneck NJ"
+    ]
+}

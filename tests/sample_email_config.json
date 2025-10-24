@@ -1,0 +1,14 @@
+{
+    "json_columns": ["query"],
+    "dict_columns": ["date"],
+    "list_columns": [{"from": "address", "to": ["address", "city"]}],
+    "interesting_columns": ["q", "title", "address", "city", "link", "start_date", "when"],
+    "output":"1.  [{title}]({link}) on {when} at [{address} {city}](https://www.google.com/maps/search/?api=1&query={address} {city})",
+    "email":
+        {
+            "sender": "from@gmail.com",
+            "receiver": "to@gmail.com",
+            "emails_from_form_id":"xxxxxxx",
+            "subject": "Events in NJ this month"
+        }
+}
